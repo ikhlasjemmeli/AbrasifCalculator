@@ -1,0 +1,142 @@
+﻿@model ArticleDetailsViewModel
+@{
+  
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel="stylesheet" type="text/css" href="~/css/Article.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="liste">
+        <h2 class="text-center title"> Liste des composants  de : @Model.ArticleName</h2>
+        <div class="row mb-5">
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom <span class="label">du composant</span> </th>
+                    <th style="text-align: center;vertical-align: middle;">Quantité</th>
+                    <th style="text-align: center;vertical-align: middle;">Prix <span class="label">de l'unité</span></th>
+                    <th style="text-align: center;vertical-align: middle;"><span class="label">Prix</span> HT</th>
+                    <th style="text-align: center;vertical-align: middle;">TVA</th>
+                    <th style="text-align: center;vertical-align: middle;"><span class="label">Prix</span> TTC</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var comp in Model.Components)
+                {
+                    <tr>
+                        <th>@comp.Name</th>
+                        <th style="text-align: center;vertical-align: middle;">@comp.Quantity</th>
+                        <th style="text-align: center;vertical-align: middle;">@comp.Price  DT</th>
+                        <th style="text-align: center;vertical-align: middle;">@((comp.Price * comp.Quantity).ToString("F3"))  DT</th>
+                      
+                        <th style="text-align: center;vertical-align: middle;">19%</th>
+                        <th style="text-align: center;vertical-align: middle;">
+                            @((Convert.ToDecimal(comp.Price) * Convert.ToDecimal(comp.Quantity) * 1.19m).ToString("F3")) DT
+
+                        </th>
+                        <th>
+                            <a style="color:green;cursor:pointer" data-bs-toggle="modal" data-bs-target="#exampleModal8"
+                               data-article-id="@comp.Id"
+                               data-article-Name="@comp.Name"
+                               data-component-quantity="@comp.Quantity"
+                               data-component-price="@comp.Price">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                </svg>
+                            </a>
+                        </th>
+                        <th>
+                            <a data-bs-toggle="modal" data-bs-target="#exampleModal" data-article-id="@comp.Id" data-article-Name="@comp.Name" style="color:red;cursor:pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                </svg>
+                            </a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+           
+              var myModal1 = document.getElementById('exampleModal')
+            var confirmDeleteButton = document.getElementById('confirmDeleteButton');
+           
+
+             myModal1.addEventListener('show.bs.modal', function (event) {
+                // Récupérez l'élément qui a déclenché l'événement
+                var button = event.relatedTarget;
+                 // Récupérez l'ID de l'article depuis l'attribut data
+                var articleId = button.getAttribute('data-article-id');
+                // Récupérez le nom de l'article depuis l'attribut data
+                var articleName = button.getAttribute('data-article-Name');
+                // Modifiez le texte du modal pour inclure l'ID
+                var modalTitle = myModal1.querySelector('.Nb');
+
+                modalTitle.textContent = 'Vous êtes sur le point de supprimer : ' + articleName + ' ?';
+
+
+                // Mettre à jour le champ caché avec l'ID de l'article
+                var hiddenField = myModal1.querySelector('input[name="articleId"]');
+                hiddenField.value = articleId;
+                var hiddenField = myModal1.querySelector('input[name="type"]');
+                hiddenField.value = "component";
+
+               
+
+              
+                
+            });
+
+            var myModal2 = document.getElementById('exampleModal8');
+            myModal2.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
+                var articleId = button.getAttribute('data-article-id');
+                var compName = button.getAttribute('data-article-Name');
+
+                // Récupérer d'autres données nécessaires pour le composant (vous pourriez avoir besoin d'ajouter ces données dans l'élément `data-*`)
+                var componentQuantity = button.getAttribute('data-component-quantity');
+                var componentPrice = button.getAttribute('data-component-price');
+
+                var modalTitle = myModal2.querySelector('.modal-title');
+                modalTitle.textContent = 'Modifier le composant : ' + compName;
+
+                // Mettre à jour les champs de la modal avec les valeurs du composant
+                var hiddenFieldId = myModal2.querySelector('input[name="Id"]');
+                hiddenFieldId.value = articleId;
+
+                var inputName = myModal2.querySelector('input[name="ComponentName"]');
+                inputName.value = compName; // Mettre à jour le nom
+
+                var inputQuantity = myModal2.querySelector('input[name="Quantity"]');
+                inputQuantity.value = componentQuantity; // Mettre à jour la quantité
+
+                var inputPrice = myModal2.querySelector('input[name="Price"]');
+                inputPrice.value = componentPrice; // Mettre à jour le prix
+            });
+        });
+
+
+    </script>
+</body>
+@await Html.PartialAsync("DeleteArticle")
+@await Html.PartialAsync("EditComponent")
+</html>

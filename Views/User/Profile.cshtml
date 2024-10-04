@@ -1,0 +1,185 @@
+﻿@model Calculator.Models.UserDto
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!---external css ---->
+    <link rel="stylesheet" href="~/css/Profile.css">
+    <!---font awesome cdn for font icons---->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-card" style="width:420px;">
+            <div class="profile-pic" style="margin-left:50px;">
+                <img src="~/images/profile.jpg" alt="user avatar">
+            </div>
+
+            <div class="profile-details">
+                <div class="intro">
+                    <h2>@Model.Name</h2>
+                   
+                </div>
+
+                <div class="contact-info mt-5  mb-4">
+
+
+                    <div class="mt-2">
+
+                        <h5> <i class="fa fa-user " style="margin-right:10px;"></i> @Model.Name </h5>
+
+                    </div>
+                    <div class="mt-3">
+                        
+
+                        <h5> <i class="fa fa-envelope-open" style="margin-right:10px;"></i> @Model.Email</h5>
+                        
+                    </div>
+                    <div class="mt-3">
+
+
+                        <h5>  <i class="fa fa-lock" style="margin-right:12px; "></i>  <input type="password" value=@Model.Password style="border:none ; outline:none ;background-color :#eef1ea;" readonly /> <a style=" cursor:pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal4"><i style=" position:absolute; right:3rem ; " class="fa fa-edit"></i></a>
+                        </h5>
+                    </div>
+
+                   
+
+                </div>
+                <button data-bs-toggle="modal" data-bs-target="#exampleModal3" class="download-btn"> <i class="fa fa-edit"></i> Modifier le profile</button>
+            </div>
+        </div>
+
+
+        <div class="about">
+            <h1>Statistiques</h1>
+
+            
+            <div style="width:700px;" class="work">
+                <div class="workbox">
+                    
+                    <div class="desc">
+                        <h3 style="color:black;">Articles</h3>
+                        
+                        <p style="font-size:4rem; padding:1rem;">@Model.TotalArticles</p>
+                    </div>
+                </div>
+
+                <div  class="workbox">
+                   
+                    <div class="desc">
+                        <h3 style="color:black;">Composants</h3>
+                        
+                        <p style="font-size:4rem;  padding:1rem;">@Model.TotalComponents</p>
+                    </div>
+                </div>
+
+              
+            </div>
+        </div>
+    </div>
+</body>
+<!-- Include the partial view for the modal -->
+@await Html.PartialAsync("EditProfile")
+@await Html.PartialAsync("EditPassword")
+</html>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const formProfile = document.getElementById('editProfileForm');
+        const formPassword = document.getElementById('editPasswordForm');
+        const modalElement = document.getElementById('exampleModal3');
+        const modalElement1 = document.getElementById('exampleModal4');
+        const passwordError = document.getElementById('PasswordError');
+        const oldPasswordError = document.getElementById('oldPasswordError');
+        const confPasswordError = document.getElementById('confPasswordError');
+        const passwordField = document.getElementById('passwordField');
+        const oldpasswordField = document.getElementById('oldpasswordField');
+        const confpasswordField = document.getElementById('confpasswordField');
+        const newpasswordField = document.getElementById('newpasswordField');
+        // Réinitialiser les messages d'erreur lorsque le modal est ouvert
+        modalElement.addEventListener('shown.bs.modal', function () {
+            passwordError.innerText = ''; // Réinitialiser le message d'erreur
+            passwordField.value = '';
+        });
+        modalElement1.addEventListener('shown.bs.modal', function () {
+            oldPasswordError.innerText = ''; // Réinitialiser le message d'erreur
+            oldpasswordField.value = '';
+            confPasswordError.innerText = ''; // Réinitialiser le message d'erreur
+            confpasswordField.value = '';
+            newpasswordField.value = '';
+        });
+        passwordField.addEventListener('input', function () {
+            passwordError.innerText = ''; // Réinitialiser le message d'erreur lorsque l'utilisateur tape
+        });
+        oldpasswordField.addEventListener('input', function () {
+            oldPasswordError.innerText = ''; // Réinitialiser le message d'erreur lorsque l'utilisateur tape
+        });
+        confpasswordField.addEventListener('input', function () {
+            confPasswordError.innerText = ''; // Réinitialiser le message d'erreur lorsque l'utilisateur tape
+        });
+        // Gestion des erreurs pour Modal 3
+        formProfile.addEventListener('submit', async function (event) {
+            event.preventDefault(); // Empêche la soumission normale du formulaire
+
+            const formData = new FormData(formProfile);
+            const response = await fetch('/User/EditProfile', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest' // Indique que c'est une requête AJAX
+                }
+            });
+
+            const result = await response.json();
+
+            
+
+            if (result.success) {
+                window.location.href = '/User/Profile';
+            } else {
+                // Affichez les messages d'erreur sous les champs appropriés
+                passwordError.innerText = result.errorMessage ;
+            }
+        });
+
+        // Gestion des erreurs pour Modal 4
+        formPassword.addEventListener('submit', async function (event) {
+            event.preventDefault(); // Empêche la soumission normale du formulaire
+
+            const formData = new FormData(formPassword);
+            const response = await fetch('/User/EditPassword', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest' // Indique que c'est une requête AJAX
+                }
+            });
+
+            const result = await response.json();
+
+           
+
+            if (result.success) {
+                window.location.href = '/User/Profile';
+            } else {
+                // Affichez les messages d'erreur sous les champs appropriés
+                oldPasswordError.innerText = result.errorMessagePass ;
+                confPasswordError.innerText = result.errorMessageConf ;
+            }
+        });
+    });
+
+
+
+
+
+
+
+
+
+</script>

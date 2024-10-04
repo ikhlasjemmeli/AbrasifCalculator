@@ -1,0 +1,66 @@
+﻿@model Calculator.Models.UserDto
+<head>
+    <link rel="stylesheet" href="~/css/popup.css" />
+    <!-- Assurez-vous que Bootstrap est également inclus -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" />
+</head>
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Modifier le profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="login-content  mt-xxl-5">
+                    <form action="/Article/AddComponent" method="post" id="editProfileForm">
+                        <input type="hidden" name="ArticleId" />
+                        <div class="input-div one  ">
+                            <div class="i">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="div">
+                                <input type="text" placeholder="Utilisateur" asp-for="Name" value="@Model.Name" style="color:black; font-weight:bold;" class="input">
+                            </div>
+                        </div>
+
+
+                        <div class="input-div one  ">
+                            <div class="i">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="div">
+                                <input type="text" placeholder="Email" asp-for="Email" value="@Model.Email" style="color:black; font-weight:bold;" class="input">
+                            </div>
+                        </div>
+
+
+                        <div class="input-div one  ">
+                            <div class="i">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <div class="div">
+
+                                <input type="password" placeholder="Mot de passe" id="passwordField" style="color:black" asp-for="Password" class="input">
+                                
+                            </div>
+                           
+                        </div>
+                        <div id="PasswordError" class="text-danger "></div>
+
+
+
+                        <input type="hidden" name="ArticleId" />
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn" style="align-items:end; width: 30%;height: 40px;border-radius: 25px;outline: none;border: none;background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);background-size: 200%;font-size: 1rem;color: #fff;">
+                                Modifier
+                            </button>
+                        </div>
+                    </form>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>

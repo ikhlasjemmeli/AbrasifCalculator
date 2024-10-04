@@ -1,0 +1,90 @@
+﻿@model Calculator.Models.UserDto;
+
+@{
+    Layout = null; // Pas de layout pour cette page
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <title>Modern Login Page | AsmrProg</title>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form asp-controller="User" asp-action="SignUp" method="post">
+                <h1>Créer un compte</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                <span>ou utilisez votre email pour l'inscription</span>
+                <input type="text" placeholder="Nom" asp-for="Name"/>
+                <input type="email" placeholder="Email" asp-for="Email"/>
+                @if (ViewData["ValidationMessage"] != null)
+                {
+                    <br />
+                    <br />
+                    <label style="color:red;">@ViewData["ValidationMessage"]</label>
+                }
+                <input type="password" placeholder="Mot de passe" asp-for="Password"/>
+                <button type="submit">Créer</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form asp-controller="User" asp-action="Login" method="post">
+                <h1>Se connecter</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+                <span>ou utilisez le mot de passe de votre adresse email</span>
+                <input type="email" placeholder="Email" asp-for="Email"/>
+                <input type="password" placeholder="Mot de passe" asp-for="Password"/>
+                <div style="display:flex;flex-direction:row; height:50px">
+                <label>
+                    <input type="checkbox" asp-for="KeepLoggedIn" /> Rester connecté(e)
+                </label>
+                </div>
+
+                <a href="#">Oubliez votre mot de passe?</a>
+                <button type="submit"> Se connecter</button>
+                @if (ViewData["ValidateMessage"] != null)
+                {
+                    <br />
+                    <br />
+                    <label style="color:red;">@ViewData["ValidateMessage"]</label>
+                }
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Bienvenue !</h1>
+                    <p>Saisissez vos données personnelles pour utiliser toutes les fonctionnalités</p>
+                    <button class="hidden" id="login">Se connecter</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Salut !</h1>
+                    <p>Enregistrez-vous avec vos données personnelles pour utiliser toutes les fonctionnalités</p>
+                    <button class="hidden" id="register">Inscrivez-vous</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/app.js".js"></script>
+</body>
+
+</html>

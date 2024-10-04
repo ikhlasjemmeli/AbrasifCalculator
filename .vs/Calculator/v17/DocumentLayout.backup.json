@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\jasmi\\OneDrive\\Bureau\\Calculator\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\calculator\\views\\article\\article.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:views\\article\\article.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\calculator\\wwwroot\\css\\article.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:wwwroot\\css\\article.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\calculator\\views\\article\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:views\\article\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\Calculator\\Views\\Article\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Article\\Details.cshtml",
+              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\Calculator\\Views\\Article\\Details.cshtml",
+              "RelativeToolTip": "Views\\Article\\Details.cshtml",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAADAAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-04T09:09:41.978Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Article.css",
+              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\Calculator\\wwwroot\\css\\Article.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\Article.css",
+              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\Calculator\\wwwroot\\css\\Article.css",
+              "RelativeToolTip": "wwwroot\\css\\Article.css",
+              "ViewState": "AgIAADoAAAAAAAAAAAAAAD8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-10-02T07:42:59.173Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Article.cshtml",
+              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\Calculator\\Views\\Article\\Article.cshtml",
+              "RelativeDocumentMoniker": "Views\\Article\\Article.cshtml",
+              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\Calculator\\Views\\Article\\Article.cshtml*",
+              "RelativeToolTip": "Views\\Article\\Article.cshtml*",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAADAAAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-02T07:42:46.122Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

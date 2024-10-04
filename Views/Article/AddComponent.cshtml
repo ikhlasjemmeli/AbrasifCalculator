@@ -1,0 +1,63 @@
+﻿@model ComponentDto
+<head>
+    <link rel="stylesheet" href="~/css/popup.css" />
+    <!-- Assurez-vous que Bootstrap est également inclus -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" />
+</head>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                Ajouter un composant à : <h1 class="modal-title alert-heading fs-5" id="exampleModalLabel"> </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="login-content  mt-xxl-5">
+                <form action="/Article/AddComponent" method="post">
+                    
+                            <div class="input-div one  ">
+                                <div class="i">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="div">
+                                <input type="text" placeholder="Nom du composant" asp-for="Name" class="input">
+                                </div>
+                            </div>
+
+                            
+                            <div class="input-div one  ">
+                                <div class="i">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="div">
+                                <input type="number" placeholder="Quantité" asp-for="Quantity" class="input">
+                                </div>
+                            </div>
+
+
+                        <div class="input-div one  ">
+                            <div class="i">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="div">
+                                <input type="text" placeholder="Prix de l'unité" aria-label="Dollar amount (with dot and three decimal places)" asp-for="Price" class="input">
+                                <span class="" style="width:30px; right:0 ;bottom:10px; position:absolute">DT</span>
+                            </div>
+                        </div>
+
+                           
+                    
+                    <input type="hidden" name="ArticleId" />
+                      
+                    <div class="mt-4">
+                    <button type="submit" class="btn" style="align-items:end; width: 30%;height: 40px;border-radius: 25px;outline: none;border: none;background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);background-size: 200%;font-size: 1rem;color: #fff;">
+                        Ajouter
+                    </button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
