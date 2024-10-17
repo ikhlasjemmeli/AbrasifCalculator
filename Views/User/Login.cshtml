@@ -17,7 +17,7 @@
 
 <body>
 
-    <div class="container" id="container">
+    <div class="container" id="container" style="  min-height: 580px;">
         <div class="form-container sign-up">
             <form asp-controller="User" asp-action="SignUp" method="post">
                 <h1>Créer un compte</h1>
@@ -68,14 +68,16 @@
                 }
             </form>
         </div>
-        <div class="toggle-container">
+        <div class="toggle-container" style=" top: 0;
+    left: 50%;  width: 50%;
+    height: 100%;  border-radius: 0 0 0 0;">
             <div class="toggle">
-                <div class="toggle-panel toggle-left">
+                <div class="toggle-panel toggle-left" >
                     <h1>Bienvenue !</h1>
                     <p>Saisissez vos données personnelles pour utiliser toutes les fonctionnalités</p>
                     <button class="hidden" id="login">Se connecter</button>
                 </div>
-                <div class="toggle-panel toggle-right">
+                <div class="toggle-panel toggle-right" >
                     <h1>Salut !</h1>
                     <p>Enregistrez-vous avec vos données personnelles pour utiliser toutes les fonctionnalités</p>
                     <button class="hidden" id="register">Inscrivez-vous</button>

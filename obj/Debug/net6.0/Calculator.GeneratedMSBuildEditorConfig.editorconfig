@@ -9,83 +9,103 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Calculator
 build_property.RootNamespace = Calculator
-build_property.ProjectDir = C:\Users\jasmi\OneDrive\Bureau\Calculator\
+build_property.ProjectDir = C:\Users\jasmi\OneDrive\Bureau\AbrasifCalculator\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\jasmi\OneDrive\Bureau\Calculator
+build_property.MSBuildProjectDirectory = C:\Users\jasmi\OneDrive\Bureau\AbrasifCalculator
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/Article/AddComponent.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/Article/AddComponent.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxBZGRDb21wb25lbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/Article/Article.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/Article/Article.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxBcnRpY2xlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/Article/Create.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/Article/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/Article/DeleteArticle.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/Article/DeleteArticle.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxEZWxldGVBcnRpY2xlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/Article/Details.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/Article/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/Article/EditArticle.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/Article/EditArticle.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxFZGl0QXJ0aWNsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/Article/EditComponent.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/Article/EditComponent.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxFZGl0Q29tcG9uZW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/Home/Index.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/Article/Statistic.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWNsZVxTdGF0aXN0aWMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/Home/Privacy.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/Shared/Error.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/RawMaterial/AddRawMaterial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF3TWF0ZXJpYWxcQWRkUmF3TWF0ZXJpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/RawMaterial/DeleteRawMaterial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF3TWF0ZXJpYWxcRGVsZXRlUmF3TWF0ZXJpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/RawMaterial/EditRawMaterial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF3TWF0ZXJpYWxcRWRpdFJhd01hdGVyaWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/RawMaterial/RawMaterial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF3TWF0ZXJpYWxcUmF3TWF0ZXJpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/User/EditPassword.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/User/EditPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0UGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/User/EditProfile.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/User/EditProfile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0UHJvZmlsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/User/Login.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/User/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/User/Profile.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/User/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/_ViewImports.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/_ViewStart.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jasmi/OneDrive/Bureau/Calculator/Views/Shared/_Layout.cshtml]
+[C:/Users/jasmi/OneDrive/Bureau/AbrasifCalculator/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-i5kysbodk9

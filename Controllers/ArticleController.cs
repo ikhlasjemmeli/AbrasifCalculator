@@ -4,6 +4,8 @@ using Calculator.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Security.Claims;
+using System.Text.Json;
 
 public class ArticleController : Controller
 {
@@ -16,12 +18,26 @@ public class ArticleController : Controller
 
     public IActionResult Article()
     {
-        var articles = context.Articles.Include(a => a.ArticleComponents).ToList();
+       //var articles = context.Articles.Include(a => a.ArticleComponents).ToList();
+        var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var user = context.Users.FirstOrDefault(u => u.Email == userEmail);
+
+        
+            var articles = context.Articles
+                .Include(a => a.ArticleComponents)
+                .Where(a => a.UserId == user.Id) // Filtrer par UserId
+                .ToList();
+
+        var components = context.Components.ToList();
+
+        // Gérer le cas où l'utilisateur n'est pas trouvé (peut-être rediriger vers la page de connexion)
+
         var comp = new ComponentDto
         {
             articles = articles,
             Name = "",
-            
+            components = components
+
         };
         
         return View(comp);
@@ -45,6 +61,7 @@ public class ArticleController : Controller
         {
             Nameart = name,
             Id = id
+            
 
 
         };
@@ -71,9 +88,15 @@ public class ArticleController : Controller
             return View(); // Passez l'articleDto à la vue Create
         }
 
+        // Récupérer l'ID de l'utilisateur à partir des claims
+        var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var user = context.Users.FirstOrDefault(u => u.Email == userEmail);
+
         var article = new Article
         {
             Name = Nameart,
+            UserId = user?.Id ?? 0, // Assurez-vous que l'ID de l'utilisateur est bien assigné
+            CreationDate = DateTime.Now,
         };
 
         context.Articles.Add(article);
@@ -100,33 +123,15 @@ public class ArticleController : Controller
         //};
         return RedirectToAction("Details", "Article", new { id = component.ArticleId }); // Cette vue ne nécessite pas de modèle ou utilise ArticleDto pour l'affichage
     }
-
-    public IActionResult AddComponent()
-    {
-        return View(); // Cette vue ne nécessite pas de modèle ou utilise ComponentDto pour l'affichage
-    }
+ 
+  
 
     [HttpPost]
     public IActionResult Addcomponent(ComponentDto componentDto, int articleId)
     {
-        var compoentId = 0;
-      var existingComponent = context.Components.FirstOrDefault(comp => comp.Name == componentDto.Name);
-        if (existingComponent == null)
-        {
-            var component = new Component
-            {
-                Name = componentDto.Name,
-            };
+        //var compoentId = 0;
+        var existingComponent = context.Components.FirstOrDefault(comp => comp.Name == componentDto.Name);
        
-
-        context.Components.Add(component);
-        context.SaveChanges();
-            compoentId = component.Id;
-        }
-        else
-        {
-            compoentId = existingComponent.Id;
-        }
 
         // Récupérer l'article de la base de données
         var article = context.Articles
@@ -135,8 +140,8 @@ public class ArticleController : Controller
         var ArtComp = new ArticleComponent
         {
             ArticleId = articleId,
-            ComponentId = compoentId,
-            Quantity =componentDto.Quantity,
+            ComponentId = existingComponent.Id,
+            Quantity = componentDto.Quantity,
             Price = componentDto.Price
         };
         article.ArticleComponents.Add(ArtComp);
@@ -144,23 +149,33 @@ public class ArticleController : Controller
 
         return RedirectToAction("Article", "Article");
     }
+    public IActionResult AddComponent()
+    {
+        return View(); // Cette vue ne nécessite pas de modèle ou utilise ComponentDto pour l'affichage
+    }
+
+  
 
     public IActionResult Details(int id)
     {
         var articleComponents = context.ArticleComponents.Where(c => c.ArticleId == id).Include(c=>c.Component).Include(c => c.Article).ToList() ;
         var articleName = context.Articles.FirstOrDefault(c => c.Id == id).Name;
+        
         var components = articleComponents.Select(c => new ComponentDto
      {
         Id=c.Component.Id,
          Name = c.Component.Name,  // Accéder au nom du composant à travers l'inclusion
          Quantity = c.Quantity,              // Inclure d'autres propriétés si nécessaire
-         Price = c.Price
-     })
+         Price = c.Price,
+         Tva =c.tva,
+         totalpriceTTC = c.totalpriceTTC,
+        })
      .ToList();
 
         var articleDetailsViewModel = new ArticleDetailsViewModel
         {
             ArticleName = articleName,
+            ArticleId = id,
             Components = components
 
         };
@@ -195,5 +210,50 @@ public class ArticleController : Controller
             
         
         
+    }
+
+   
+
+    [HttpPost]
+    public IActionResult UpdateTva([FromBody] TvaUpdateModelDto model)
+    {
+        Console.WriteLine("Méthode UpdateTva appelée");
+        Console.WriteLine("Données reçues : " + JsonSerializer.Serialize(model)); // Nécessite using System.Text.Json;
+
+        if (ModelState.IsValid)
+        {
+            var component = context.ArticleComponents
+                .FirstOrDefault(c => c.ArticleId == model.articleId && c.ComponentId == model.componentId);
+
+            if (component == null)
+            {
+                Console.WriteLine($"Composant non trouvé pour ArticleId={model.articleId}, ComponentId={model.componentId}");
+                return NotFound(new { success = false, message = "Component not found." });
+            }
+
+            try
+            {
+                component.tva = model.Tva;
+                component.totalpriceTTC = model.totalpriceTTC;
+                context.Update(component);
+                context.SaveChanges();
+                return Ok(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erreur lors de la mise à jour de la TVA: " + ex.Message);
+                return StatusCode(500, new { success = false, message = ex.Message });
+            }
+        }
+
+        Console.WriteLine("ModelState non valide : " + JsonSerializer.Serialize(ModelState));
+        return BadRequest(new { success = false, errors = ModelState });
+    }
+
+
+
+    public IActionResult Statistic() 
+    { 
+        return View(); 
     }
 }

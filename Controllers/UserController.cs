@@ -124,7 +124,8 @@ namespace Calculator.Controllers
 
            var userName = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
             var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            int totalArticles = context.Articles.Count();
+           var user = context.Users.FirstOrDefault(u => u.Email == userEmail);
+            int totalArticles = context.Articles.Count(a => a.UserId == user.Id);
             int totalComponents = context.Components.Count();
             var model = new UserDto
             {

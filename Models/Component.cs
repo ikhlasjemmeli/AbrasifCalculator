@@ -8,6 +8,8 @@ namespace Calculator.Models
         public int Id { get; set; }
         [MaxLength(100)]
         public string Name { get; set; } = "";
+
+        public string Unit { get; set; }
         public ICollection<ArticleComponent> ArticleComponents { get; set; } = new List<ArticleComponent>();
 
 

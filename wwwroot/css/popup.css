@@ -119,8 +119,24 @@ form {
 }
 
 
-
-
+.input-div  select {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0.5rem 0.7rem;
+    font-size: 1.2rem;
+    color: #555;
+    font-family: 'poppins', sans-serif;
+    appearance: none; /* Supprime l'apparence par défaut du select */
+}
+.input-div select:focus {
+    color: #38d39f; /* Changez la couleur du texte lors du focus */
+}
 
 .btn {
     transition: background-size 0.5s; /* Animation de bouton */

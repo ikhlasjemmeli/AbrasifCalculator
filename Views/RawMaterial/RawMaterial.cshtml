@@ -1,0 +1,163 @@
+﻿@model ListComponentDto
+
+@{
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <link rel="stylesheet" type="text/css" href="~/css/Article.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="liste" style="width:100%; margin-left:0.5%;">
+        <h2 class="text-center title"> Liste des matières premières</h2>
+        <div class="row mb-5">
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom <span class="label">de la matière</span> </th>
+                    <th style="text-align: center;vertical-align: middle;">Unité de la matière</th>
+                   
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var rawMaterial in Model.Components)
+        {
+                    <tr>
+                        <th>@rawMaterial.Name</th>
+                        <th style="text-align: center;vertical-align: middle;" id="totalArticles">@rawMaterial.Unit</th>
+
+                        <th>
+                            <a style="color:green;cursor:pointer" data-bs-toggle="modal" data-bs-target="#ModalEditRawMaterial"
+                               data-material-id="@rawMaterial.Id"
+                               data-material-Name="@rawMaterial.Name"
+                               data-material-unit="@rawMaterial.Unit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                </svg>
+                            </a>
+                        </th>
+                        <th>
+                            <a data-bs-toggle="modal" data-bs-target="#ModalDeleteRawMaterial" data-material-id="@rawMaterial.Id" data-material-Name="@rawMaterial.Name" style="color:red;cursor:pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                </svg>
+                            </a>
+                        </th>
+                    </tr>
+        }
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ModalDelete = document.getElementById('ModalDeleteRawMaterial')
+            var ModalEditRawMaterial = document.getElementById('ModalEditRawMaterial')
+            var confirmDeleteButton = document.getElementById('confirmDeleteButton');
+            ModalDelete.addEventListener('show.bs.modal', function (event) {
+                // Récupérez l'élément qui a déclenché l'événement
+                var button = event.relatedTarget;
+                // Récupérez l'ID de l'article depuis l'attribut data
+                var rawmaterialId = button.getAttribute('data-material-id');
+                // Récupérez le nom de l'article depuis l'attribut data
+                var rawmaterialName = button.getAttribute('data-material-Name');
+                // Modifiez le texte du modal pour inclure l'ID
+                //var modalTitle = ModalDelete.querySelector('.modal-title');
+                var modalTitle = ModalDelete.querySelector('.Nb');
+                modalTitle.textContent = 'Vous êtes sur le point de supprimer : ' + rawmaterialName;
+
+                // Ajoutez l'ID de l'article comme champ caché dans le formulaire
+                var form = ModalDelete.querySelector('form');
+                var hiddenField = form.querySelector('input[name="rawmaterialId"]');
+                hiddenField.value = rawmaterialId;
+            });
+
+            ModalEditRawMaterial.addEventListener('show.bs.modal', function (event) {
+                // Récupérez l'élément qui a déclenché l'événement
+                var button = event.relatedTarget;
+                 // Récupérez l'ID de l'article depuis l'attribut data
+                var rawmaterialId = button.getAttribute('data-material-id');
+                // Récupérez le nom de l'article depuis l'attribut data
+                var rawmaterialName = button.getAttribute('data-material-Name');
+                var rawmaterialUnit = button.getAttribute('data-material-Unit');
+                // Modifiez le texte du modal pour inclure l'ID
+                var modalTitle = ModalDelete.querySelector('.modal-title');
+
+                modalTitle.textContent = '' + rawmaterialName ;
+
+
+                // Mettre à jour le champ caché avec l'ID de l'article
+                var form = ModalEditRawMaterial.querySelector('form');
+                var hiddenField = form.querySelector('input[name="rawmaterialId"]');
+                hiddenField.value = rawmaterialId;
+               
+
+
+
+
+            });
+        });
+
+
+
+            function updateTtc() {
+                // Récupérer le montant total des articles affiché dans la première colonne
+                const totalArticles = parseFloat(document.getElementById("totalArticles").innerText);
+
+                // Récupérer la valeur de l'input de TVA
+                const tva = parseFloat(document.getElementById("tvaInput").value) || 0; // Valeur par défaut à 0 si non valide
+
+                // Calculer le total TTC
+                const totalWithTva = (totalArticles * (1 + (tva / 100))).toFixed(2);
+
+                // Mettre à jour la troisième colonne
+                document.getElementById("totalWithTva").innerText = totalWithTva + ' DT';
+
+                updatepiece();
+            }
+
+
+
+
+              function updatepiece() {
+                // Récupérer le montant total des articles affiché dans la première colonne
+            const totalWithTva = parseFloat(document.getElementById("totalWithTva").innerText);
+
+            const pieceInput = parseFloat(document.getElementById("pieceInput").value) || 0;
+
+                // Récupérer la valeur de l'input de TVA
+
+
+                // Calculer le total TTC
+            const pieceprix = (totalWithTva / pieceInput).toFixed(2);
+
+                // Mettre à jour la troisième colonne
+            document.getElementById("pieceprix").innerText = pieceprix + ' DT';
+            }
+
+    </script>
+
+</body>
+
+
+<!-- Include the partial view for the modal -->
+@await Html.PartialAsync("DeleteRawMaterial")
+@await Html.PartialAsync("EditRawMaterial")
+</html>

@@ -13,6 +13,8 @@ namespace Calculator.Services
         public DbSet<Component> Components { get; set; }
         public DbSet<ArticleComponent> ArticleComponents { get; set; }
         public DbSet<User> Users { get; set; }
+
+   
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

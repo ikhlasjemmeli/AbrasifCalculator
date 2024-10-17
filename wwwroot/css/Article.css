@@ -18,13 +18,13 @@ body {
     border-radius: 10px;
     height: 600px;
     margin-top: 50px;
-    width: 86%;
-    margin-left: 7%;
-    margin-right: 7%;
+    width: 100%;
+   /*  margin-left: 3%;
+    margin-right: 3%;*/
     background-color: #fff5;
     backdrop-filter: blur(7px);
     box-shadow: 0 1px 20px #4fb48c;
-    padding:2%;
+    padding: 2%;
 }
 th{
     font-size:1rem;

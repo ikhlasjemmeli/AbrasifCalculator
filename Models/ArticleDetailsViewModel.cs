@@ -5,6 +5,7 @@ namespace Calculator.Models
     public class ArticleDetailsViewModel
     {
         public string ArticleName { get; set; }
+        public int ArticleId { get; set; }
         public List<ComponentDto> Components { get; set; }
          
         public string  ComponentName { get; set; }
@@ -13,5 +14,6 @@ namespace Calculator.Models
         
         public decimal Price { get; set; }
         public int Id { get; set; }
+       
     }
 }

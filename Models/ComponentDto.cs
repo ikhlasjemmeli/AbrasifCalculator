@@ -7,6 +7,7 @@ namespace Calculator.Models
 
     {
         public List<Article> articles { get; set; }
+        public List<Component> components { get; set; }
         public string artName { get; set; } = "";
         public int Id { get; set; }
         [MaxLength(100)]
@@ -15,5 +16,7 @@ namespace Calculator.Models
         public int Quantity { get; set; }
         [Required, Precision(16, 3)]
         public decimal Price { get; set; }
+        public int Tva { get; set; }
+        public decimal totalpriceTTC { get; set; }
     }
 }

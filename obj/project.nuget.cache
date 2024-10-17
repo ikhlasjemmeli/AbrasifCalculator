@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CTTKtIe7K20=",
+  "dgSpecHash": "r/N2Sns37sA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\jasmi\\OneDrive\\Bureau\\Calculator\\Calculator.csproj",
+  "projectFilePath": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Calculator.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jasmi\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\jasmi\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

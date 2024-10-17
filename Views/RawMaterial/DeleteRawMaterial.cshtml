@@ -1,0 +1,34 @@
+﻿
+<head>
+    <link rel="stylesheet" href="~/css/popup.css" />
+    <!-- Assurez-vous que Bootstrap est également inclus -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" />
+</head>
+<!-- Modal -->
+<div class="modal fade" id="ModalDeleteRawMaterial" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title alert-heading fs-5" id="exampleModalLabel">Attention!</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" role="alert">
+
+                    <p style="font-size:1rem" class="Nb"> </p>
+
+                    <p style="font-size:0.8rem" class="mb-0">Nb: <strong>Cette action est irréversible</strong> et entraînera la perte de toutes les données associées à cet article.</p>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <form id="deleteArticleForm" method="post" action="/RawMaterial/DeleteRawMaterial">
+                    <input type="hidden" name="rawmaterialId" id="rawmaterialId" value="" />
+                    
+                    <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

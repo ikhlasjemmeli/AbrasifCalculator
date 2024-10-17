@@ -1,6 +1,8 @@
 ﻿@model ArticleDetailsViewModel
 @{
-  
+    // Calculate totals
+    decimal totalHT = Model.Components.Sum(comp => comp.Price * comp.Quantity);
+    decimal totalTTC = Model.Components.Sum(comp => comp.totalpriceTTC);
 }
 
 <!DOCTYPE html>
@@ -42,11 +44,10 @@
                         <th>@comp.Name</th>
                         <th style="text-align: center;vertical-align: middle;">@comp.Quantity</th>
                         <th style="text-align: center;vertical-align: middle;">@comp.Price  DT</th>
-                        <th style="text-align: center;vertical-align: middle;">@((comp.Price * comp.Quantity).ToString("F3"))  DT</th>
-                      
-                        <th style="text-align: center;vertical-align: middle;">19%</th>
-                        <th style="text-align: center;vertical-align: middle;">
-                            @((Convert.ToDecimal(comp.Price) * Convert.ToDecimal(comp.Quantity) * 1.19m).ToString("F3")) DT
+                        <th style="text-align: center;vertical-align: middle;" class="totalComponents">@((comp.Price * comp.Quantity).ToString("F3"))  DT</th>
+                        <th style="text-align: center;vertical-align: middle; "><input style="width:50px" type="number"  class="tvaInput" placeholder="TVA" onchange="updateTtc(this, @comp.Id)" value="@comp.Tva" /> %</th>
+                       <th style="text-align: center;vertical-align: middle;" class="totalWithTva">
+                            @comp.totalpriceTTC DT
 
                         </th>
                         <th>
@@ -73,6 +74,35 @@
                 }
             </tbody>
         </table>
+        <div style="left:646px; position : absolute; color:red">
+
+        <!-- Summary Row -->
+        <tfoot >
+            <tr>
+                <th colspan="2" style="text-align: right;">Total HT:</th>
+                <th style="text-align: center; margin-left:300px;">@totalHT.ToString("F3") DT</th>
+               
+                
+            </tr>
+                
+        </tfoot>
+           
+        </div>
+
+        <div style="left:920px; position : absolute; color:red">
+
+            <!-- Summary Row -->
+            <tfoot>
+                <tr>
+                    <th colspan="2" style="text-align: right;">Total TTC:</th>
+                    <th style="text-align: center; margin-left:300px;">@totalTTC.ToString("F3") DT</th>
+
+
+                </tr>
+
+            </tfoot>
+
+        </div>
     </div>
      <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -134,6 +164,52 @@
             });
         });
 
+        function updateTtc(tvaInput, id) {
+            // Récupérer la ligne parente du champ de TVA
+            var row = tvaInput.closest('tr');
+            
+            
+            // Récupérer le montant total des articles affiché dans la première colonne
+            const totalComponents = (row.querySelector('.totalComponents').innerText.replace(' DT', '').replace(',', '.').trim()) || 0;
+
+
+            // Récupérer la valeur de l'input de TVA
+            const tva = parseFloat(tvaInput.value) || 0; // Valeur par défaut à 0 si non valide
+
+            // Calculer le total TTC
+            // const totalWithTva = totalArticles + (totalArticles * (tva / 100));
+            const totalWithTva = (totalComponents * (1 + (tva / 100))).toFixed(3);
+
+            // Mettre à jour la colonne TTC
+            row.querySelector('.totalWithTva').innerText = totalWithTva.replace('.', ',') + ' DT';
+            const payload = { articleId: @Model.ArticleId, componentId: id, Tva: tva, totalpriceTTC: totalWithTva };
+            console.log('Données envoyées:', JSON.stringify(payload));
+            // Effectuer une requête AJAX pour mettre à jour la TVA dans la base de données
+            fetch(`/Article/UpdateTva`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors de la mise à jour de la TVA');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Mise à jour réussie', data);
+                   // updateTtc(tvaInput);
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
+
+
+        }
+
+       
 
     </script>
 </body>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jasmi\\OneDrive\\Bureau\\Calculator\\Calculator.csproj": {}
+    "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Calculator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jasmi\\OneDrive\\Bureau\\Calculator\\Calculator.csproj": {
+    "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Calculator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jasmi\\OneDrive\\Bureau\\Calculator\\Calculator.csproj",
+        "projectUniqueName": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Calculator.csproj",
         "projectName": "Calculator",
-        "projectPath": "C:\\Users\\jasmi\\OneDrive\\Bureau\\Calculator\\Calculator.csproj",
+        "projectPath": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Calculator.csproj",
         "packagesPath": "C:\\Users\\jasmi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jasmi\\OneDrive\\Bureau\\Calculator\\obj\\",
+        "outputPath": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -16,16 +16,33 @@
                 <div class="login-content  mt-xxl-5">
                 <form action="/Article/AddComponent" method="post">
                     
-                            <div class="input-div one  ">
-                                <div class="i">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="div">
-                                <input type="text" placeholder="Nom du composant" asp-for="Name" class="input">
-                                </div>
-                            </div>
+                           
 
-                            
+                        <div class="input-div one">
+                            <div class="i">
+                                <i class="fas fa-cube"></i>
+                            </div>
+                            <div class="div">
+                                <select asp-for="Name" id="componentSelect" class="input" style=" border: none;outline: none;left: 0;top: 0;width: 100%;height: 100%;background: none;padding: 0.5rem 0.7rem;font-size: 1.2rem;color: #555;font-family: 'poppins', sans-serif;appearance: none;">
+                                    <option value="">Sélectionnez une matière </option>
+                                    @foreach (var component in Model.components)
+                                    {
+                                        <option value="@component.Name" data-unit="@component.Unit">@component.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="input-div one  ">
+                            <div class="i">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="div">
+                                <input type="text" id="unitInput" placeholder="Unité de la matière" class="input" readonly>
+                            </div>
+                        </div>
+
+
                             <div class="input-div one  ">
                                 <div class="i">
                                     <i class="fas fa-user"></i>
@@ -61,3 +78,15 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    document.getElementById('componentSelect').addEventListener('change', function () {
+        var selectedOption = this.options[this.selectedIndex];
+        var unit = selectedOption.getAttribute('data-unit');
+
+        // Mettez à jour le champ d'entrée avec l'unité
+        document.getElementById('unitInput').value = unit ? unit : ''; // Vide si aucune unité
+    });
+</script>
+

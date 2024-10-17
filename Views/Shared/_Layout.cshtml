@@ -26,16 +26,19 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Article">Articles</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="RawMaterial" asp-action="RawMaterial">Matières première</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Article" asp-action="Create">Ajouter un Article</a>
                         </li>
-                       
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="RawMaterial" asp-action="AddRawMaterial">Ajouter une matière première</a>
+                        </li>
                       
 
                     </ul>
@@ -52,14 +55,16 @@
 
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-start dropdown-menu-lg-start" style="z-index:1050;">
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Profile" type="button">Voir Profile</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Profile" type="button"><i class="fa-solid fa-user"></i> Voir Profile</a></li>
+                                   
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Article" asp-action="Statistic" type="button"><i class="fa-solid fa-chart-pie"></i> Statistique</a></li>
                                     <li>
                                         <a class="dropdown-item text-danger" asp-area="" asp-controller="Home" asp-action="LogOut">
                                             <i class="fa-solid fa-power-off"></i> <span class=" text-dark"> Se déconnecter </span>
                                         </a>
                                     </li>
-                                    
-                                    
+
+
                                 </ul>
                             </div>
                            

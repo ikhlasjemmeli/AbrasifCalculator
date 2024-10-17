@@ -2,6 +2,7 @@
 @model ComponentDto
 
 @{
+    
 }
 
 <!DOCTYPE html>
@@ -16,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<div class="liste">
+<div class="liste" style="width:100%; margin-left:0.5%;">
 <h2  class="text-center title"> Liste des articles</h2>
 <div class="row mb-5">
     <div class="col">
@@ -30,10 +31,11 @@
     <thead>
         <tr>
                     <th>Nom <span class="label">de l'article</span> </th>
-                    <th style="text-align: center;vertical-align: middle;">Prix <span class="label">HT</span></th>
-                    <th style="text-align: center;vertical-align: middle;">TVA</th>
+                   <!-- <th style="text-align: center;vertical-align: middle;">Prix <span class="label">HT</span></th>
+                    <th style="text-align: center;vertical-align: middle;">TVA</th> -->
                     <th style="text-align: center;vertical-align: middle;">Prix <span class="label">TTC</span></th>
-                    <th style="text-align: center;vertical-align: middle;"><span class="label">Nombre de</span> composants</th>
+                    <th style="text-align: center;vertical-align: middle;"><span class="label">Nombre de</span> pièce</th>
+                     <th style="text-align: center;vertical-align: middle;"><span class="label">Prix de</span> pièce</th>
             <th></th>
             <th></th>
             <th></th>
@@ -45,11 +47,17 @@
         {
             <tr>
                 <th>@article.Name</th>
-                        <th style="text-align: center;vertical-align: middle;">@article.ArticleComponents.Sum(c => c.Quantity * c.Price) DT</th>
-                        <th style="text-align: center;vertical-align: middle;">19%</th>  
-                        <th style="text-align: center;vertical-align: middle;">@article.ArticleComponents.Sum(c => (Convert.ToDecimal(c.Quantity) * Convert.ToDecimal(c.Price) * 1.19m)).ToString("F3") DT</th>
-                        <th style="text-align: center;vertical-align: middle;">@article.ArticleComponents.Count()</th>
-                        <th>
+                            <!--   <th style="text-align: center;vertical-align: middle;" class="totalArticles">@article.ArticleComponents.Sum(c => c.Quantity * c.Price) DT</th>
+            <th style="text-align: center;vertical-align: middle;">
+                <input style="width:50px" type="number" class="tvaInput" placeholder="TVA" onchange="updateTtc(this)" /> %
+            </th>-->
+            <th style="text-align: center;vertical-align: middle;" class="totalWithTva">@article.ArticleComponents.Sum(c=>c.totalpriceTTC) DT</th>
+            <th style="text-align: center;vertical-align: middle;">
+                <input style="width:50px" type="number" class="pieceInput" placeholder="Pièce" onchange="updatepiece(this)" />
+            </th>
+                 <th style="text-align: center;vertical-align: middle;" class="pieceprix">0 DT </th>
+
+        <th>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-article-id="@article.Id" data-article-Name="@article.Name" style="color:blue;cursor:pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -135,6 +143,48 @@
                 
             });
         });
+
+
+             
+function updateTtc(tvaInput) {
+    // Récupérer la ligne parente du champ de TVA
+    var row = tvaInput.closest('tr');
+
+    // Récupérer le montant total des articles affiché dans la première colonne
+    const totalArticles = (row.querySelector('.totalArticles').innerText.replace(' DT', '').replace(',', '.').trim()) || 0;
+
+
+    // Récupérer la valeur de l'input de TVA
+    const tva = parseFloat(tvaInput.value) || 0; // Valeur par défaut à 0 si non valide
+
+    // Calculer le total TTC
+   // const totalWithTva = totalArticles + (totalArticles * (tva / 100));
+    const totalWithTva = (totalArticles * (1 + (tva / 100))).toFixed(3) ;
+    
+    // Mettre à jour la colonne TTC
+    row.querySelector('.totalWithTva').innerText = totalWithTva.replace('.', ',') + ' DT';
+
+            var pieceInput = row.querySelector('.pieceInput') ; // Récupérer l'input des pièces
+            if (pieceInput.value > 0) {
+        updatepiece(pieceInput); // Passer l'élément input à la fonction
+    }
+    
+}
+
+function updatepiece(pieceInput) {
+     var row = pieceInput.closest('tr');
+     const piece = parseFloat(pieceInput.value) || 0;
+   // const piece = parseFloat(document.getElementById("pieceInput").value) || 0;
+     const totalWithTva = (row.querySelector('.totalWithTva').innerText.replace(' DT', '').replace(',', '.').trim()) || 0;
+  const pieceprix =  (totalWithTva / piece).toFixed(3);
+ 
+
+   row.querySelector('.pieceprix').innerText = pieceprix + ' DT';
+
+}
+
+
+    
     </script>
 
 </body>
