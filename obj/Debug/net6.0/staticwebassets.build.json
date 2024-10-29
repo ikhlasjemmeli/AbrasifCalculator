@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7x5OHNmHCa/YsB2pwiCwcZg6gxK284DTdB0lM9UAm8Q=",
+  "Hash": "/E6RjsR3YHN0/6nLiWib1BlCWTrit44004a6Uv0b6hg=",
   "Source": "Calculator",
   "BasePath": "_content/Calculator",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\Article.css"
+    },
+    {
+      "Identity": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\wwwroot\\css\\Home.css",
+      "SourceId": "Calculator",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\wwwroot\\",
+      "BasePath": "_content/Calculator",
+      "RelativePath": "css/Home.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Home.css"
     },
     {
       "Identity": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\wwwroot\\css\\login.css",
@@ -243,6 +262,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\av.png"
+    },
+    {
+      "Identity": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\wwwroot\\images\\back.jpg",
+      "SourceId": "Calculator",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\wwwroot\\",
+      "BasePath": "_content/Calculator",
+      "RelativePath": "images/back.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\back.jpg"
     },
     {
       "Identity": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\wwwroot\\images\\cercle.png",

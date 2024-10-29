@@ -51,13 +51,19 @@
             <th style="text-align: center;vertical-align: middle;">
                 <input style="width:50px" type="number" class="tvaInput" placeholder="TVA" onchange="updateTtc(this)" /> %
             </th>-->
-            <th style="text-align: center;vertical-align: middle;" class="totalWithTva">@article.ArticleComponents.Sum(c=>c.totalpriceTTC) DT</th>
+                        <th style="text-align: center;vertical-align: middle;" class="totalWithTva">@article.ArticleComponents.Sum(c => c.Quantity * c.Price) DT</th>
             <th style="text-align: center;vertical-align: middle;">
-                <input style="width:50px" type="number" class="pieceInput" placeholder="Pièce" onchange="updatepiece(this)" />
+                <input style="width:50px" type="number" class="pieceInput" placeholder="Pièce" value="@article.numberOfPieces" onchange="updatepiece(this,@article.Id)" />
             </th>
-                 <th style="text-align: center;vertical-align: middle;" class="pieceprix">0 DT </th>
+                        <th style="text-align: center;vertical-align: middle;" class="pieceprix">
+                            @{
+                                var total = article.ArticleComponents.Sum(c => c.Quantity * c.Price);
+                                var pricePerPiece = article.numberOfPieces > 0 ? (total / article.numberOfPieces).ToString("F3") : "0.000"; // Valeur par défaut
+                            }
+                            @pricePerPiece DT
+                        </th>
 
-        <th>
+                         <th>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal2" data-article-id="@article.Id" data-article-Name="@article.Name" style="color:blue;cursor:pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -97,7 +103,36 @@
 </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            const token = '@Model.token';
+           
+          
+            console.log("Token récupéré:", token)
+            if (!token) {
+                window.location.href = '/User/Login'; // Redirigez vers la page de connexion si le token n'existe pas
+            } else {
+                const response = await fetch('/Article/Article', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Ajouter le jeton ici
+                    },
+
+                });
+
+                if (response.ok) {
+                    // Rediriger ou afficher un message de succès
+                    console.log("token:", token)
+                    // window.location.href = '/Article/Article'; // Redirection après la création réussie
+                } else {
+                    window.location.href = '/User/Login';
+                    const errorMessage = await response.text();
+                    console.error('Erreur:', errorMessage); // Afficher l'erreur dans la console
+                    alert('Erreur lors de du get.'); // Afficher une alerte à l'utilisateur
+                }
+            }
+      //  document.addEventListener('DOMContentLoaded', function () {
             var myModal = document.getElementById('exampleModal2')
               var myModal1 = document.getElementById('exampleModal')
             var confirmDeleteButton = document.getElementById('confirmDeleteButton');
@@ -145,7 +180,7 @@
         });
 
 
-             
+/*             
 function updateTtc(tvaInput) {
     // Récupérer la ligne parente du champ de TVA
     var row = tvaInput.closest('tr');
@@ -169,9 +204,9 @@ function updateTtc(tvaInput) {
         updatepiece(pieceInput); // Passer l'élément input à la fonction
     }
     
-}
+}*/
 
-function updatepiece(pieceInput) {
+function updatepiece(pieceInput, id) {
      var row = pieceInput.closest('tr');
      const piece = parseFloat(pieceInput.value) || 0;
    // const piece = parseFloat(document.getElementById("pieceInput").value) || 0;
@@ -180,12 +215,54 @@ function updatepiece(pieceInput) {
  
 
    row.querySelector('.pieceprix').innerText = pieceprix + ' DT';
+            const payload = { Id: id, pieces: piece, };
+            const token ='@Model.token'
+            console.log('Données envoyées:', JSON.stringify(payload));
+            if (!token) {
+                window.location.href = '/User/Login';
+
+            }
+            // Effectuer une requête AJAX pour mettre à jour la TVA dans la base de données
+            fetch(`/Article/UpdatePieces`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(payload)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors de la mise à jour de nombre de pieces');
+                    }
+                    if (response.status === 401) {
+                        // Rediriger vers la page de connexion
+                        window.location.href = '/User/Login';
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Mise à jour réussie', data);
+                 
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                });
 
 }
 
 
-    
-    </script>
+
+
+       
+           
+
+  
+   
+
+            
+            
+            </script>
 
 </body>
 

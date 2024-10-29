@@ -8,6 +8,7 @@ namespace Calculator.Models
         public int Id { get; set; }
         public string Nameart { get; set; } = "";
         public ComponentDto ComponentDto { get; set; } 
+        public string token { get; set; }
 
     }
 }

@@ -3,28 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\views\\article\\article.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:views\\article\\article.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\views\\article\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:views\\article\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\models\\articlecomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:models\\articlecomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\views\\article\\editcomponent.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:views\\article\\editcomponent.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\views\\article\\editarticle.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:views\\article\\editarticle.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\controllers\\articlecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:controllers\\articlecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\models\\componentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:models\\componentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\views\\article\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:views\\article\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\models\\component.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:models\\component.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\views\\article\\article.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:views\\article\\article.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\controllers\\articlecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:controllers\\articlecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\views\\article\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:views\\article\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\models\\articledetailsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:models\\articledetailsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\views\\article\\addcomponent.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:views\\article\\addcomponent.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|c:\\users\\jasmi\\onedrive\\bureau\\abrasifcalculator\\wwwroot\\css\\home.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{B031EB2E-145B-46C4-AFD3-A2F5369B0EC7}|Calculator.csproj|solutionrelative:wwwroot\\css\\home.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,85 +54,145 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ComponentDto.cs",
-              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Models\\ComponentDto.cs",
-              "RelativeDocumentMoniker": "Models\\ComponentDto.cs",
-              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Models\\ComponentDto.cs",
-              "RelativeToolTip": "Models\\ComponentDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T10:46:19.953Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Component.cs",
-              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Models\\Component.cs",
-              "RelativeDocumentMoniker": "Models\\Component.cs",
-              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Models\\Component.cs",
-              "RelativeToolTip": "Models\\Component.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T10:45:40.056Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ArticleController.cs",
-              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Controllers\\ArticleController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ArticleController.cs",
-              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Controllers\\ArticleController.cs",
-              "RelativeToolTip": "Controllers\\ArticleController.cs",
-              "ViewState": "AgIAAJwAAAAAAAAAAAAAAKoAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T08:58:56.478Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\Details.cshtml",
-              "RelativeDocumentMoniker": "Views\\Article\\Details.cshtml",
-              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\Details.cshtml",
-              "RelativeToolTip": "Views\\Article\\Details.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "EditComponent.cshtml",
+              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\EditComponent.cshtml",
+              "RelativeDocumentMoniker": "Views\\Article\\EditComponent.cshtml",
+              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\EditComponent.cshtml",
+              "RelativeToolTip": "Views\\Article\\EditComponent.cshtml",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAAAFUAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-08T13:59:05.574Z",
+              "WhenOpened": "2024-10-28T13:18:08.853Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EditArticle.cshtml",
+              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\EditArticle.cshtml",
+              "RelativeDocumentMoniker": "Views\\Article\\EditArticle.cshtml",
+              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\EditArticle.cshtml",
+              "RelativeToolTip": "Views\\Article\\EditArticle.cshtml",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAADkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-25T13:39:59.056Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Article.cshtml",
-              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\Article.cshtml",
-              "RelativeDocumentMoniker": "Views\\Article\\Article.cshtml",
-              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\Article.cshtml*",
-              "RelativeToolTip": "Views\\Article\\Article.cshtml*",
-              "ViewState": "AgIAACsAAAAAAAAAAAAAADUAAACJAAAAAAAAAA==",
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Article\\Details.cshtml",
+              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\Details.cshtml",
+              "RelativeToolTip": "Views\\Article\\Details.cshtml",
+              "ViewState": "AgIAADUAAAAAAAAAAAAAADoAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-16T14:24:54.398Z",
+              "WhenOpened": "2024-10-28T10:35:20.923Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ArticleComponent.cs",
-              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Models\\ArticleComponent.cs",
-              "RelativeDocumentMoniker": "Models\\ArticleComponent.cs",
-              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Models\\ArticleComponent.cs",
-              "RelativeToolTip": "Models\\ArticleComponent.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAAABQAAAAkAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "Article.cshtml",
+              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\Article.cshtml",
+              "RelativeDocumentMoniker": "Views\\Article\\Article.cshtml",
+              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\Article.cshtml",
+              "RelativeToolTip": "Views\\Article\\Article.cshtml",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAAAHoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-28T11:04:35.028Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Article\\Create.cshtml",
+              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\Create.cshtml",
+              "RelativeToolTip": "Views\\Article\\Create.cshtml",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAAAFUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-23T14:27:50.709Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ArticleController.cs",
+              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Controllers\\ArticleController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ArticleController.cs",
+              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Controllers\\ArticleController.cs",
+              "RelativeToolTip": "Controllers\\ArticleController.cs",
+              "ViewState": "AgIAAPgAAAAAAAAAAAAAAAwBAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T08:30:06.421Z",
+              "WhenOpened": "2024-10-21T11:02:32.12Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ComponentDto.cs",
+              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Models\\ComponentDto.cs",
+              "RelativeDocumentMoniker": "Models\\ComponentDto.cs",
+              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Models\\ComponentDto.cs",
+              "RelativeToolTip": "Models\\ComponentDto.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAwA8AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-25T15:43:01.095Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAAADYAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T13:31:23.492Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ArticleDetailsViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Models\\ArticleDetailsViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ArticleDetailsViewModel.cs",
+              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Models\\ArticleDetailsViewModel.cs",
+              "RelativeToolTip": "Models\\ArticleDetailsViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T10:28:44.946Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AddComponent.cshtml",
+              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\AddComponent.cshtml",
+              "RelativeDocumentMoniker": "Views\\Article\\AddComponent.cshtml",
+              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\Views\\Article\\AddComponent.cshtml",
+              "RelativeToolTip": "Views\\Article\\AddComponent.cshtml",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAAAGAAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-25T15:03:11.068Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Home.css",
+              "DocumentMoniker": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\wwwroot\\css\\Home.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\Home.css",
+              "ToolTip": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\wwwroot\\css\\Home.css",
+              "RelativeToolTip": "wwwroot\\css\\Home.css",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAABsAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-10-22T10:19:32.541Z"
             }
           ]
         }

@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\css\\Article.css"
     },
     {
+      "Id": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\wwwroot\\css\\Home.css",
+      "PackagePath": "staticwebassets\\css\\Home.css"
+    },
+    {
       "Id": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\wwwroot\\css\\Profile.css",
       "PackagePath": "staticwebassets\\css\\Profile.css"
     },
@@ -43,6 +47,10 @@
     {
       "Id": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\wwwroot\\images\\av.png",
       "PackagePath": "staticwebassets\\images\\av.png"
+    },
+    {
+      "Id": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\wwwroot\\images\\back.jpg",
+      "PackagePath": "staticwebassets\\images\\back.jpg"
     },
     {
       "Id": "C:\\Users\\jasmi\\OneDrive\\Bureau\\AbrasifCalculator\\wwwroot\\images\\cercle.png",

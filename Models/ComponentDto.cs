@@ -18,5 +18,7 @@ namespace Calculator.Models
         public decimal Price { get; set; }
         public int Tva { get; set; }
         public decimal totalpriceTTC { get; set; }
+        public string token { get; set; }
+        public ArticleDetailsViewModel details { get; set; }
     }
 }

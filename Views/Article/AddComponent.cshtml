@@ -14,7 +14,7 @@
             </div>
             <div class="modal-body">
                 <div class="login-content  mt-xxl-5">
-                <form action="/Article/AddComponent" method="post">
+                <form id="addcomponent" >
                     
                            
 
@@ -23,7 +23,7 @@
                                 <i class="fas fa-cube"></i>
                             </div>
                             <div class="div">
-                                <select asp-for="Name" id="componentSelect" class="input" style=" border: none;outline: none;left: 0;top: 0;width: 100%;height: 100%;background: none;padding: 0.5rem 0.7rem;font-size: 1.2rem;color: #555;font-family: 'poppins', sans-serif;appearance: none;">
+                                <select  name="NameCOMP" id="componentSelect" class="input" style=" border: none;outline: none;left: 0;top: 0;width: 100%;height: 100%;background: none;padding: 0.5rem 0.7rem;font-size: 1.2rem;color: #555;font-family: 'poppins', sans-serif;appearance: none;">
                                     <option value="">Sélectionnez une matière </option>
                                     @foreach (var component in Model.components)
                                     {
@@ -48,7 +48,7 @@
                                     <i class="fas fa-user"></i>
                                 </div>
                                 <div class="div">
-                                <input type="number" placeholder="Quantité" asp-for="Quantity" class="input">
+                                <input type="number" placeholder="Quantité" name="Quantity" class="input">
                                 </div>
                             </div>
 
@@ -58,7 +58,7 @@
                                 <i class="fas fa-user"></i>
                             </div>
                             <div class="div">
-                                <input type="text" placeholder="Prix de l'unité" aria-label="Dollar amount (with dot and three decimal places)" asp-for="Price" class="input">
+                                <input type="text" placeholder="Prix de l'unité" aria-label="Dollar amount (with dot and three decimal places)" name="Price"  class="input">
                                 <span class="" style="width:30px; right:0 ;bottom:10px; position:absolute">DT</span>
                             </div>
                         </div>
@@ -88,5 +88,37 @@
         // Mettez à jour le champ d'entrée avec l'unité
         document.getElementById('unitInput').value = unit ? unit : ''; // Vide si aucune unité
     });
+
+
+    document.getElementById('addcomponent').onsubmit = async function (e) {
+        e.preventDefault(); // Empêche la soumission par défaut
+
+        const token = '@Model.token';
+        const id = document.querySelector('input[name="ArticleId"]').value;
+        const Name = document.querySelector('select[name="NameCOMP"]').value;
+        const Quantity = document.querySelector('input[name="Quantity"]').value;
+        const Price = document.querySelector('input[name="Price"]').value;
+        console.log(JSON.stringify({ Id: id, Name: Name, Quantity: Quantity, Price: Price }))
+        if (!token) {
+            window.location.href = '/User/Login';
+            return;
+        }
+
+        const response = await fetch('/Article/AddComponent', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ Id: id, Name: Name, Quantity: Quantity, Price: Price })
+        });
+
+        if (response.ok) {
+            window.location.href = '/Article/Article';
+        } else {
+            console.error('Erreur:', await response.text());
+        }
+    };
+
 </script>
 

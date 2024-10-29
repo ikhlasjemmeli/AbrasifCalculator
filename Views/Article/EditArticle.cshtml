@@ -17,7 +17,7 @@
 
         </div>
         <div class="login-content  mt-xxl-5">
-            <form method="post" action="/Article/Editarticle">
+            <form id="EditarticleForm">
                 <img src="~/images/av.png">
 
                 <div class="input-div one  ">
@@ -25,7 +25,7 @@
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="div">
-                        <input type="text" name="Nameart" placeholder="Nom du produit" class="input" asp-for="Nameart" value="@Model.Nameart">
+                        <input type="text" name="Nameart" placeholder="Nom du produit" class="input" value="@Model.Nameart">
                     </div>
                 </div>
                 <input type="hidden" name="Id",asp-for="Id"  value="@Model.Id">
@@ -36,6 +36,45 @@
             </form>
         </div>
     </div>
+    <script type="text/javascript">
+        document.getElementById('EditarticleForm').onsubmit = async function (e) {
+            e.preventDefault(); // Empêche la soumission par défaut
+            const token = '@Model.token';
+            const nameart = document.querySelector('input[name="Nameart"]').value;
+            const id ='@Model.Id'
+             // Ajout pour le débogage
+
+            if (!token) {
+                window.location.href = '/User/Login'; // Redirigez vers la page de connexion si le token n'existe pas
+            } else {
+                const response = await fetch('/Article/Editarticle', { // Corrigé ici
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Ajouter le jeton ici
+                    },
+                    body: JSON.stringify({ Id: id, Nameart: nameart }) // Convertir les données en JSON
+                });
+
+                if (response.ok) {
+                    
+                    window.location.href = '/Article/Article'; // Redirection après la création réussie
+                } else {
+                    const errorMessage = await response.text();
+                    console.error('Erreur:', errorMessage); // Afficher l'erreur dans la console
+                    console.error('Statut de la réponse:', response.status); // Afficher le statut de la réponse
+                    if (response.status === 401) {
+                        // Rediriger vers la page de connexion
+                        window.location.href = '/User/Login';
+                    } else {
+                        // Alerte à l'utilisateur pour d'autres erreurs
+                        alert('Erreur lors de la création de l\'article. Statut : ' + response.status);
+                    }
+                }
+
+            }
+        };
+    </script>
     <script type="text/javascript" src="~/js/main.js"></script>
 </body>
 </html>

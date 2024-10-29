@@ -1,4 +1,4 @@
-﻿@model Calculator.Models.ArticleDto
+﻿@*@model Calculator.Models.ArticleDto
 
 <!DOCTYPE html>
 <html>
@@ -37,5 +37,85 @@
         </div>
     </div>
     <script type="text/javascript" src="~/js/main.js"></script>
+</body>
+</html>*@
+@model Calculator.Models.ArticleDto
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter produit</title>
+    <link rel="stylesheet" type="text/css" href="~/css/Ajout.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <img class="wave" src="~/images/wave.png">
+    <div class="container">
+        <div class="img">
+            <img src="~/images/puzzle.png" style="width:400px; height:400px;">
+        </div>
+        <div class="login-content mt-xxl-5">
+            <form id="articleForm">
+                <img src="~/images/av.png">
+
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-signature"></i>
+                    </div>
+                    <div class="div">
+                        <input type="text" name="Nameart" placeholder="Nom du produit" class="input" asp-for="Nameart" required>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <input type="submit" class="btn" value="Enregistrer">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        document.getElementById('articleForm').onsubmit = async function (e) {
+            e.preventDefault(); // Empêche la soumission par défaut
+            const token = '@Model.token';
+            const nameart = document.querySelector('input[name="Nameart"]').value;
+
+            
+            if (!token) {
+                window.location.href = '/User/Login'; // Redirigez vers la page de connexion si le token n'existe pas
+            } else {
+                const response = await fetch('/Article/Create', { // Corrigé ici
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Ajouter le jeton ici
+                    },
+                    body: JSON.stringify({ Nameart: nameart }) // Convertir les données en JSON
+                });
+
+                if (response.ok) {
+                    
+                    window.location.href = '/Article/Article'; // Redirection après la création réussie
+                } else {
+                    const errorMessage = await response.text();
+                    console.error('Erreur:', errorMessage); // Afficher l'erreur dans la console
+                    console.error('Statut de la réponse:', response.status); // Afficher le statut de la réponse
+                    if (response.status === 401) {
+                        // Rediriger vers la page de connexion
+                        window.location.href = '/User/Login';
+                    } else {
+                        // Alerte à l'utilisateur pour d'autres erreurs
+                        alert('Erreur lors de la création de l\'article. Statut : ' + response.status);
+                    }
+                }
+
+            }
+        };
+    </script>
+
 </body>
 </html>

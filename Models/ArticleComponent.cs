@@ -19,7 +19,7 @@ namespace Calculator.Models
         public decimal totalpriceHT { get; set; }
         [Precision(16, 3)]
         public decimal totalpriceTTC { get; set; }
-        public int numberOfPieces { get; set; }
+     
 
 
     }

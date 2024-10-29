@@ -4,8 +4,14 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 namespace Calculator.Controllers
 {
     public class UserController : Controller
@@ -18,49 +24,225 @@ namespace Calculator.Controllers
             this.context = _context;
 
         }
+        public User GetUserByEmail(string email)
+        {
+            return context.Users.FirstOrDefault(u => u.Email == email);
+        }
+        private string GenerateJwtToken(string userEmail)
+        {
+            // Retrieve user details from the database based on the userEmail
+            // User user = GetUserByEmail(userEmail);
+            User user = GetUserByEmail(userEmail);
+            
+            if (user == null)
+            {
+                // Handle the case where the user is not found
+                throw new Exception("User not found");
+            }
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, userEmail),
+                new Claim("Id",user.Id.ToString()),
+                new Claim("Name",user.Name.ToString()),
+
+
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my_1_top_2_secret_3_key_4_1234567890"));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: creds
+            );
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return jwt;
+        }
+
+       
+        [HttpPost]
+        public async Task<IActionResult> Login(UserLogin request)
+        {
+            try
+            {
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Email == "Nom.Prenom@gmail.com" && x.Password == "123");
+
+                if (user == null)
+                {
+                    return BadRequest(new { message = "Invalid login attempt." });
+                }
+
+                var token = GenerateJwtToken(user.Email);
+
+                Response.Cookies.Append("token", token, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict
+                });
+                Response.Cookies.Append("Name", "Nom Prenom", new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict
+                });
+
+                // Return a JSON response instead of redirecting
+                return Ok(new { token });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (consider using a logging framework)
+                return StatusCode(500, new { message = "Internal server error" });
+            }
+        }
+
+        /* public IActionResult Login()
+         {
+             //  ClaimsPrincipal claimUser = HttpContext.User;
+             ////  throw new Exception($"{claimUser.Identity.IsAuthenticated}");
+             //  // Vérifiez si l'utilisateur est authentifié
+             //  if (claimUser.Identity.IsAuthenticated)
+             //  {
+             //      throw new Exception($"{claimUser.Identity.IsAuthenticated}");
+             //      return RedirectToAction("Index", "Home");
+             //  }
+
+             return View();
+         }*/
+        private bool IsTokenValid(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes("my_1_top_2_secret_3_key_4_1234567890"); // Utilisez la même clé que pour la génération du token
+
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero // Optionnel : supprimez le délai d'expiration
+                }, out SecurityToken validatedToken);
+
+                return true; // Token est valide
+            }
+            catch
+            {
+                return false; // Token n'est pas valide
+            }
+        }
+
+
         public IActionResult Login()
         {
-            ClaimsPrincipal ClaimUser = HttpContext.User;
-            if (ClaimUser.Identity.IsAuthenticated)
-                return RedirectToAction("Index", "Home");
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(UserDto userDto)
-        {
-            var user = await context.Users
-               .SingleOrDefaultAsync(u => u.Email == userDto.Email && u.Password == userDto.Password);
-
-            if (user != null)
-
+            /*var token = HttpContext.Request.Headers["Authorization"].ToString()?.Replace("Bearer ", "");
+           
+            if (!string.IsNullOrEmpty(token))
             {
-                
-                List<Claim> claims = new List<Claim>()
+                // Validez le token ici (similaire à ce qui a été montré précédemment)
+                if (IsTokenValid(token)) // Méthode simple pour vérifier la validité
                 {
-                     new Claim(ClaimTypes.Name, user.Name),
-                    //  new Claim(ClaimTypes.Email, userDto.Email),
-                    new Claim(ClaimTypes.NameIdentifier, userDto.Email),
-                   // new Claim(ClaimTypes.Email, userDto.Email),
+                    return RedirectToAction("Index", "Home");
+                }
+            }*/
 
-                };
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
-                    CookieAuthenticationDefaults.AuthenticationScheme);
-                AuthenticationProperties properties = new AuthenticationProperties()
-                {
-                    AllowRefresh = true,
-                    IsPersistent = userDto.KeepLoggedIn
-                };
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                    new ClaimsPrincipal(claimsIdentity), properties);
-               //var principal = new ClaimsPrincipal(claimsIdentity);
-               // var claimsList = principal.Claims.ToList();
-                return RedirectToAction("Article", "Article");
-            }
-            ViewData["ValidateMessage"] = "L'utilisateur n'a pas été trouvé";
             return View();
         }
 
+        /* 
+         [HttpPost]
+         public async Task<IActionResult> Login(UserDto userDto)
+         {
+             var user = await context.Users
+                .SingleOrDefaultAsync(u => u.Email == userDto.Email && u.Password == userDto.Password);
+
+             if (user != null)
+
+             {
+
+                 List<Claim> claims = new List<Claim>()
+                 {
+                      new Claim(ClaimTypes.Name, user.Name),
+                     //  new Claim(ClaimTypes.Email, userDto.Email),
+                     new Claim(ClaimTypes.NameIdentifier, userDto.Email),
+                    // new Claim(ClaimTypes.Email, userDto.Email),
+
+                 };
+                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
+                     CookieAuthenticationDefaults.AuthenticationScheme);
+                 AuthenticationProperties properties = new AuthenticationProperties()
+                 {
+                     AllowRefresh = true,
+                     IsPersistent = userDto.KeepLoggedIn
+                 };
+                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                     new ClaimsPrincipal(claimsIdentity), properties);
+
+                 return RedirectToAction("Article", "Article");
+             }
+             ViewData["ValidateMessage"] = "L'utilisateur n'a pas été trouvé";
+             return View();
+         }
+       /*
+       [HttpPost]
+       public async Task<IActionResult> Login(UserLogin userDto)
+       {
+           if (!ModelState.IsValid)
+           {
+               var errors = ModelState.Values
+       .SelectMany(v => v.Errors.Select(e => e.ErrorMessage))
+       .ToList();
+
+               return BadRequest(new { message = "Données invalides", errors });
+           }
+           // Rechercher l'utilisateur dans la base de données
+           var user = await context.Users
+               .SingleOrDefaultAsync(u => u.Email == userDto.Email);
+
+           if (user == null)
+           {
+               return BadRequest(new { message = "Utilisateur non trouvé ou mot de passe incorrect" });
+           }
+           if (user.Password != userDto.Password) // Remplacez par une vérification sécurisée
+           {
+               return BadRequest(new { message = "Mot de passe incorrect" });
+           }
+
+           // Créer les claims
+           var claims = new List<Claim>
+   {
+       new Claim(ClaimTypes.Name, user.Name),
+       new Claim(ClaimTypes.NameIdentifier, userDto.Email),
+   };
+
+           // Créer le token JWT
+           var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSecretKey123456789-YourSecretKey12345678"));
+           var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+           var expiration = DateTime.UtcNow.AddMinutes(30);
+
+           var token = new JwtSecurityToken(
+               issuer: "YourIssuer",
+               audience: "YourAudience",
+               expires: expiration,
+               signingCredentials: creds,
+               claims: claims
+           );
+           TempData["token"] = token;
+
+           //return Ok(new
+           // {
+           //     token = new JwtSecurityTokenHandler().WriteToken(token),
+           //     expiration
+           // });
+
+
+           // Redirection vers une autre action ou page
+           return RedirectToAction("Index", "Home");
+       }
+       */
 
 
         [HttpPost]

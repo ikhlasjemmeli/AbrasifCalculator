@@ -1,23 +1,22 @@
-﻿@model Calculator.Models.UserDto;
+﻿@model Calculator.Models.UserDto
 
 @{
     Layout = null; // Pas de layout pour cette page
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="~/css/style.css">
-    <title>Modern Login Page | AsmrProg</title>
+    <title>Page de Connexion | AsmrProg</title>
 </head>
 
 <body>
-
-    <div class="container" id="container" style="  min-height: 580px;">
+    <div class="container" id="container" style="min-height: 580px;">
         <div class="form-container sign-up">
             <form asp-controller="User" asp-action="SignUp" method="post">
                 <h1>Créer un compte</h1>
@@ -28,20 +27,22 @@
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>ou utilisez votre email pour l'inscription</span>
-                <input type="text" placeholder="Nom" asp-for="Name"/>
-                <input type="email" placeholder="Email" asp-for="Email"/>
+                <input type="text" placeholder="Nom" asp-for="Name" required />
+                <input type="email" placeholder="Email" asp-for="Email" required />
                 @if (ViewData["ValidationMessage"] != null)
                 {
                     <br />
+
                     <br />
                     <label style="color:red;">@ViewData["ValidationMessage"]</label>
                 }
-                <input type="password" placeholder="Mot de passe" asp-for="Password"/>
+                <input type="password" placeholder="Mot de passe" asp-for="Password" required />
                 <button type="submit">Créer</button>
             </form>
         </div>
+
         <div class="form-container sign-in">
-            <form asp-controller="User" asp-action="Login" method="post">
+            <form id="loginForm" asp-controller="User" asp-action="Login" method="post">
                 <h1>Se connecter</h1>
                 <div class="social-icons">
                     <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
@@ -50,34 +51,28 @@
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>ou utilisez le mot de passe de votre adresse email</span>
-                <input type="email" placeholder="Email" asp-for="Email"/>
-                <input type="password" placeholder="Mot de passe" asp-for="Password"/>
+                <input type="email" name="Email" placeholder="Email" id="email" asp-for="Email" required />
+                <input type="password" name="Password" placeholder="Mot de passe" id="mdp" asp-for="Password" required />
                 <div style="display:flex;flex-direction:row; height:50px">
-                <label>
-                    <input type="checkbox" asp-for="KeepLoggedIn" /> Rester connecté(e)
-                </label>
+                    <label>
+                        <input type="checkbox" name="KeepLoggedIn" /> Rester connecté(e)
+                    </label>
                 </div>
 
                 <a href="#">Oubliez votre mot de passe?</a>
                 <button type="submit"> Se connecter</button>
-                @if (ViewData["ValidateMessage"] != null)
-                {
-                    <br />
-                    <br />
-                    <label style="color:red;">@ViewData["ValidateMessage"]</label>
-                }
+                <div id="errorMessage" style="color:red;"></div>
             </form>
         </div>
-        <div class="toggle-container" style=" top: 0;
-    left: 50%;  width: 50%;
-    height: 100%;  border-radius: 0 0 0 0;">
+
+        <div class="toggle-container" style="top: 0; left: 50%; width: 50%; height: 100%;">
             <div class="toggle">
-                <div class="toggle-panel toggle-left" >
+                <div class="toggle-panel toggle-left">
                     <h1>Bienvenue !</h1>
                     <p>Saisissez vos données personnelles pour utiliser toutes les fonctionnalités</p>
                     <button class="hidden" id="login">Se connecter</button>
                 </div>
-                <div class="toggle-panel toggle-right" >
+                <div class="toggle-panel toggle-right">
                     <h1>Salut !</h1>
                     <p>Enregistrez-vous avec vos données personnelles pour utiliser toutes les fonctionnalités</p>
                     <button class="hidden" id="register">Inscrivez-vous</button>
@@ -86,7 +81,57 @@
         </div>
     </div>
 
-    <script src="~/js/app.js".js"></script>
+    @* <script src="~/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const token = '@TempData["token"]'; // Récupérer le token depuis TempData
+
+            if (token) {
+                localStorage.setItem('token', token); // Enregistrer dans local storage
+                console.log('Token enregistré dans local storage');
+               
+                    // Rediriger vers la page d'accueil si le token est présent
+                    window.location.href = '/Home/Index';
+                
+            }
+        });
+    </script>*@
+    <script>
+        document.getElementById('loginForm').onsubmit = async function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('mdp').value;
+          
+           
+            const response = await fetch('/User/Login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                   
+                },
+                body: JSON.stringify({ Email: email, Password: password })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+               // localStorage.setItem('token', data.token);
+               
+                window.location.href = '/Home/Index'; // Redirect to the articles page
+               
+            } else {
+                const errorMessage = await response.text();
+               // document.getElementById('errorMessage').textContent = errorMessage; // Display error message
+                console.log(errorMessage)
+            }
+        };
+
+    </script>
+   
+
+    <script src="~/js/app.js" .js"></script>
+
+   
 </body>
 
 </html>

@@ -2,7 +2,62 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<head>
+    <title>Ajouter produit</title>
+    <link rel="stylesheet" type="text/css" href="~/css/Home.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style=" background: url('@Url.Content("~/images/back.jpg")') no-repeat;  background-size: cover;
+    background-position: center;">
+    
+@*<div class="background" >
+    <img src="~/images/back.jpg" alt="Alternate Text" />
+</div>*@
+<div class="container" style=" background: url('@Url.Content("~/images/back.jpg")') no-repeat; ">
+    <div class="content text-center">
+            <h1 class="display-4" style=" font-weight:bold;
+        font-size:7rem; color:#32be8f; ">
+                Bienvenue
+            </h1>
+            <h3 class="display-4" style=" font-weight:bold;
+        font-size:3rem; color:#32be8f; ">
+                @ViewBag.UserName
+            </h3>
+    </div>
 </div>
+
+
+<script>
+       
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            // Récupérer le token à partir des cookies
+            const token = Cookies.get('token'); // Utilisation de js-cookie
+          
+
+            console.log("tokenhome", token);
+        if (!token) {
+            window.location.href = '/User/Login'; // Redirigez vers la page de connexion si le token n'existe pas
+        } else {
+            // Si le token existe, faites une requête au serveur
+            const response = await fetch('/Home/Index', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                // Affichez le contenu de la page ou redirigez vers une autre page
+                const content = await response.text();
+                document.body.innerHTML = content; // Remplacez le corps de la page par le contenu reçu
+            } else {
+                window.location.href = '/User/Login'; // Redirigez vers la page de connexion si la réponse n'est pas OK
+            }
+        }
+    });
+
+</script>
+</body>

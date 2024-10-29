@@ -1,8 +1,8 @@
-﻿@model ArticleDetailsViewModel
+﻿@model ComponentDto //ArticleDetailsViewModel
 @{
     // Calculate totals
-    decimal totalHT = Model.Components.Sum(comp => comp.Price * comp.Quantity);
-    decimal totalTTC = Model.Components.Sum(comp => comp.totalpriceTTC);
+    decimal totalHT =  Model.details.Components.Sum(comp => comp.Price * comp.Quantity);
+    decimal totalTTC =  Model.details.Components.Sum(comp => comp.totalpriceTTC);
 }
 
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="liste">
-        <h2 class="text-center title"> Liste des composants  de : @Model.ArticleName</h2>
+        <h2 class="text-center title"> Liste des composants  de : @Model.details.ArticleName</h2>
         <div class="row mb-5">
             <div class="col">
             </div>
@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var comp in Model.Components)
+                @foreach (var comp in Model.details.Components)
                 {
                     <tr>
                         <th>@comp.Name</th>
@@ -55,7 +55,8 @@
                                data-article-id="@comp.Id"
                                data-article-Name="@comp.Name"
                                data-component-quantity="@comp.Quantity"
-                               data-component-price="@comp.Price">
+                               data-component-price="@comp.Price"
+                               >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
@@ -105,7 +106,36 @@
         </div>
     </div>
      <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', async function () {
+            console.log("Token récupéré:en cours");
+          const token = '@Model.token';
+            const id = '@Model.details.ArticleId';
+            console.log('Id', JSON.stringify(id));
+             console.log("Token récupéré:", token);
+            if (!token) {
+                window.location.href = '/User/Login'; // Redirigez vers la page de connexion si le token n'existe pas
+            }
+            else {
+                const response = await fetch(`/Article/Details?id=${id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+
+                if (response.ok) {
+                    // Rediriger ou afficher un message de succès
+                    console.log("tokendetails", token);
+                    // window.location.href = '/Article/Article'; // Redirection après la création réussie
+                } else {
+                    window.location.href = '/User/Login';
+                    const errorMessage = await response.text();
+                    console.error('Erreur:', errorMessage); // Afficher l'erreur dans la console
+                    alert('Erreur lors de du get.'); // Afficher une alerte à l'utilisateur
+                }
+            }
            
               var myModal1 = document.getElementById('exampleModal')
             var confirmDeleteButton = document.getElementById('confirmDeleteButton');
@@ -182,7 +212,7 @@
 
             // Mettre à jour la colonne TTC
             row.querySelector('.totalWithTva').innerText = totalWithTva.replace('.', ',') + ' DT';
-            const payload = { articleId: @Model.ArticleId, componentId: id, Tva: tva, totalpriceTTC: totalWithTva };
+            const payload = { articleId: @Model.details.ArticleId, componentId: id, Tva: tva, totalpriceTTC: totalWithTva };
             console.log('Données envoyées:', JSON.stringify(payload));
             // Effectuer une requête AJAX pour mettre à jour la TVA dans la base de données
             fetch(`/Article/UpdateTva`, {

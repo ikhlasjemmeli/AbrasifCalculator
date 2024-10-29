@@ -1,4 +1,4 @@
-﻿@model ArticleDetailsViewModel
+﻿@model ComponentDto
 <head>
     <link rel="stylesheet" href="~/css/popup.css" />
     <!-- Assurez-vous que Bootstrap est également inclus -->
@@ -14,7 +14,7 @@
             </div>
             <div class="modal-body">
                 <div class="login-content  mt-xxl-5">
-                    <form action="/Article/EditComponent" method="post">
+                    <form id="Editcomponent">
 
                         <div class="input-div one  ">
                             <div class="i">
@@ -48,7 +48,7 @@
 
 
 
-                        <input type="hidden" name="Id" ,asp-for="Id" value="@Model.Id">
+                        <input type="" name="Id" ,asp-for="Id" value="@Model.Id">
 
                         <div class="mt-4">
                             <button type="submit" class="btn" style="align-items:end; width: 30%;height: 40px;border-radius: 25px;outline: none;border: none;background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);background-size: 200%;font-size: 1rem;color: #fff;">
@@ -61,3 +61,40 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    document.getElementById('Editcomponent').onsubmit = async function (e) {
+        e.preventDefault(); // Empêche la soumission par défaut
+        const token = '@Model.token';
+        const Quantity = document.querySelector('input[name="Quantity"]').value;
+        const Price = document.querySelector('input[name="Price"]').value; 
+        const id = document.querySelector('input[name="Id"]').value;
+        const articleid = '@Model.details.ArticleId';
+        if (!token) {
+            window.location.href = '/User/Login'; // Redirigez vers la page de connexion si le token n'existe pas
+        } else {
+            const response = await fetch('/Article/EditComponent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Ajouter le jeton ici
+                },
+                body: JSON.stringify({ Id: id, Quantity: parseInt(Quantity), Price: parseFloat(Price) }) // Assurez-vous de la bonne conversion
+            });
+
+            if (response.ok) {
+                window.location.href =  `/Article/Details?id=${articleid}`;
+                // Redirigez ou effectuez d'autres actions
+            } else {
+                const errorMessage = await response.text();
+                console.error('Erreur:', errorMessage);
+                console.error('Statut de la réponse:', response.status);
+                if (response.status === 401) {
+                    window.location.href = '/User/Login';
+                } else {
+                    alert('Erreur lors de la création de l\'article. Statut : ' + response.status);
+                }
+            }
+        }
+    };
+</script>
