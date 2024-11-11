@@ -9,6 +9,7 @@ namespace Calculator.Models
         public string Nameart { get; set; } = "";
         public ComponentDto ComponentDto { get; set; } 
         public string token { get; set; }
+        public int numberOfPieces { get; set; }
 
     }
 }

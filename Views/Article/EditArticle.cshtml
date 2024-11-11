@@ -14,40 +14,57 @@
     <div class="container">
         <div class="img">
             <img src="~/images/puzzle.png" style="width:400px; height:400px;">
-
         </div>
-        <div class="login-content  mt-xxl-5">
+        <div class="login-content mt-xxl-5">
             <form id="EditarticleForm">
                 <img src="~/images/av.png">
 
-                <div class="input-div one  ">
+                <div class="input-div one">
                     <div class="i">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="div">
-                        <input type="text" name="Nameart" placeholder="Nom du produit" class="input" value="@Model.Nameart">
+                        <input type="text" name="Nameart" id="Nameart" placeholder="Nom du produit" class="input" value="@Model.Nameart" required>
                     </div>
                 </div>
-                <input type="hidden" name="Id",asp-for="Id"  value="@Model.Id">
-                <div class="buttons">
 
-                    <input type="submit" class="btn" value="Modifier">
+                <input type="hidden" name="Id" asp-for="Id" value="@Model.Id">
+
+                <div class="buttons">
+                    <input type="submit" class="btn" value="Modifier" id="submitButton" disabled>
                 </div>
             </form>
         </div>
     </div>
+
     <script type="text/javascript">
+        // Fonction de validation pour vérifier si tous les champs nécessaires sont remplis
+        function validateForm() {
+            const nameart = document.querySelector('input[name="Nameart"]').value;
+
+            // Si le champ "Nom du produit" est rempli, activer le bouton
+            if (nameart.trim()) {
+                document.getElementById('submitButton').disabled = false; // Activer le bouton
+            } else {
+                document.getElementById('submitButton').disabled = true; // Désactiver le bouton
+            }
+        }
+
+        // Validation en temps réel sur le champ "Nom du produit"
+        document.getElementById('Nameart').addEventListener('input', validateForm);
+
+        // Soumission du formulaire
         document.getElementById('EditarticleForm').onsubmit = async function (e) {
             e.preventDefault(); // Empêche la soumission par défaut
+
             const token = '@Model.token';
             const nameart = document.querySelector('input[name="Nameart"]').value;
-            const id ='@Model.Id'
-             // Ajout pour le débogage
+            const id = '@Model.Id';
 
             if (!token) {
-                window.location.href = '/User/Login'; // Redirigez vers la page de connexion si le token n'existe pas
+                window.location.href = '/User/Login'; // Redirige vers la page de connexion si le token n'existe pas
             } else {
-                const response = await fetch('/Article/Editarticle', { // Corrigé ici
+                const response = await fetch('/Article/Editarticle', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -57,24 +74,21 @@
                 });
 
                 if (response.ok) {
-                    
-                    window.location.href = '/Article/Article'; // Redirection après la création réussie
+                    window.location.href = '/Article/Article'; // Redirection après la modification réussie
                 } else {
                     const errorMessage = await response.text();
-                    console.error('Erreur:', errorMessage); // Afficher l'erreur dans la console
-                    console.error('Statut de la réponse:', response.status); // Afficher le statut de la réponse
+                    console.error('Erreur:', errorMessage);
+                    console.error('Statut de la réponse:', response.status);
                     if (response.status === 401) {
-                        // Rediriger vers la page de connexion
-                        window.location.href = '/User/Login';
+                        window.location.href = '/User/Login'; // Redirige vers la page de connexion si la réponse est 401
                     } else {
-                        // Alerte à l'utilisateur pour d'autres erreurs
-                        alert('Erreur lors de la création de l\'article. Statut : ' + response.status);
+                        alert('Erreur lors de la modification de l\'article. Statut : ' + response.status);
                     }
                 }
-
             }
         };
     </script>
+
     <script type="text/javascript" src="~/js/main.js"></script>
 </body>
 </html>

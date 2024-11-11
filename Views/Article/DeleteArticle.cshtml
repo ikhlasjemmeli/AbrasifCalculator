@@ -40,9 +40,12 @@
         e.preventDefault(); // Empêche la soumission par défaut
         const token = '@Model.token';
        
+
         const id = document.querySelector('input[name="articleId"]').value;
         const type = document.querySelector('input[name="type"]').value;
-       
+        const urlPath = window.location.pathname; // Récupère le chemin de l'URL, par exemple '/Article/Details/57'
+        const articleIdFromUrl = urlPath.split('/').pop(); // Récupère la dernière partie de l'URL après le dernier '/'
+
         if (!token) {
             window.location.href = '/User/Login'; // Redirigez vers la page de connexion si le token n'existe pas
         } else {
@@ -56,8 +59,16 @@
             });
 
             if (response.ok) {
-
-                window.location.href = '/Article/Article'; // Redirection après la création réussie
+                if(type=="article"){
+                     window.location.href = '/Article/Article'; // Redirection après la création réussie
+                   
+                }
+                else{
+                    window.location.href = `/Article/Details?id=${articleIdFromUrl}`;
+                    
+                }
+                    
+               
             } else {
                 const errorMessage = await response.text();
                 console.error('Erreur:', errorMessage); // Afficher l'erreur dans la console

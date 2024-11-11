@@ -8,59 +8,118 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5>Modifier le profile</h5>
+                <h5>Modifier le profil</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="login-content  mt-xxl-5">
-                    <form action="/Article/AddComponent" method="post" id="editProfileForm">
-                        <input type="hidden" name="ArticleId" />
-                        <div class="input-div one  ">
+                <div class="login-content mt-xxl-5">
+                    <form id="editProfileForm">
+                        <div class="input-div one">
                             <div class="i">
                                 <i class="fas fa-user"></i>
                             </div>
                             <div class="div">
-                                <input type="text" placeholder="Utilisateur" asp-for="Name" value="@Model.Name" style="color:black; font-weight:bold;" class="input">
+                                <input type="text" placeholder="Utilisateur" name="Name" asp-for="Name" value="@Model.Name" style="color:black; font-weight:bold;" class="input">
                             </div>
                         </div>
 
-
-                        <div class="input-div one  ">
+                        <div class="input-div one">
                             <div class="i">
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <div class="div">
-                                <input type="text" placeholder="Email" asp-for="Email" value="@Model.Email" style="color:black; font-weight:bold;" class="input">
+                                <input type="text" placeholder="Email" name="Email" asp-for="Email" value="@Model.Email" style="color:black; font-weight:bold;" class="input">
                             </div>
                         </div>
 
-
-                        <div class="input-div one  ">
+                        <div class="input-div one">
                             <div class="i">
                                 <i class="fas fa-lock"></i>
                             </div>
                             <div class="div">
-
-                                <input type="password" placeholder="Mot de passe" id="passwordField" style="color:black" asp-for="Password" class="input">
-                                
+                                <input type="password" placeholder="Mot de passe" id="passwordField" style="color:black;" name="Password" asp-for="Password" class="input">
                             </div>
-                           
                         </div>
-                        <div id="PasswordError" class="text-danger "></div>
-
-
-
-                        <input type="hidden" name="ArticleId" />
+                        <div id="PasswordError" class="text-danger"></div>
 
                         <div class="mt-4">
-                            <button type="submit" class="btn" style="align-items:end; width: 30%;height: 40px;border-radius: 25px;outline: none;border: none;background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);background-size: 200%;font-size: 1rem;color: #fff;">
+                            <button type="submit" class="btn" id="submitButton" style="align-items:end; width: 30%;height: 40px;border-radius: 25px;outline: none;border: none;background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);background-size: 200%;font-size: 1rem;color: #fff;" disabled>
                                 Modifier
                             </button>
                         </div>
                     </form>
                 </div>
-               
             </div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    // Fonction pour valider les champs du formulaire
+    function validateForm() {
+        const name = document.querySelector('input[name="Name"]').value.trim();
+        const email = document.querySelector('input[name="Email"]').value.trim();
+        const password = document.querySelector('input[name="Password"]').value.trim();
+
+        let isValid = true;
+
+        // Vérification du mot de passe (facultative selon vos critères)
+        if (password && password.length < 1) {  // Exemple : mot de passe doit avoir au moins 6 caractères
+            isValid = false;
+        } else {
+            document.getElementById('PasswordError').textContent = '';
+        }
+
+        // Activer ou désactiver le bouton de soumission en fonction de la validation des champs
+        if (name && email && isValid) {
+            document.getElementById('submitButton').disabled = false;
+        } else {
+            document.getElementById('submitButton').disabled = true;
+        }
+    }
+
+    // Ajout des écouteurs d'événements pour valider en temps réel
+    document.querySelector('input[name="Name"]').addEventListener('input', validateForm);
+    document.querySelector('input[name="Email"]').addEventListener('input', validateForm);
+    document.querySelector('input[name="Password"]').addEventListener('input', validateForm);
+
+    // Soumission du formulaire
+    document.getElementById('editProfileForm').onsubmit = async function (e) {
+        e.preventDefault(); // Empêche la soumission par défaut du formulaire
+
+        const token = '@Model.token';
+        const name = document.querySelector('input[name="Name"]').value;
+        const email = document.querySelector('input[name="Email"]').value;
+        const password = document.querySelector('input[name="Password"]').value;
+
+        console.log("Nom:", name);
+        console.log("Email:", email);
+        console.log("Mot de passe:", password);
+
+        if (!token) {
+            window.location.href = '/User/Login'; // Redirige vers la page de connexion si le token n'existe pas
+        } else {
+            const response = await fetch('/User/EditProfil', {  // URL du serveur pour modifier le profil
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Ajout du jeton d'authentification
+                },
+                body: JSON.stringify({ Name: name, Email: email, Password: password }) // Corps de la requête contenant les données
+            });
+
+            if (response.ok) {
+                window.location.href = '/User/Profile';  // Redirige vers la page de profil après modification
+            } else {
+                const errorMessage = await response.text();
+                console.error('Erreur:', errorMessage);  // Affichage de l'erreur dans la console
+                console.error('Statut de la réponse:', response.status);  // Affichage du statut de la réponse
+                if (response.status === 401) {
+                    window.location.href = '/User/Login';  // Redirige vers la page de connexion si le jeton est invalide
+                } else {
+                    alert('Erreur lors de la modification du profil. Statut : ' + response.status);
+                }
+            }
+        }
+    };
+</script>

@@ -42,10 +42,7 @@
                         <th style="text-align: center;vertical-align: middle;" id="totalArticles">@rawMaterial.Unit</th>
 
                         <th>
-                            <a style="color:green;cursor:pointer" data-bs-toggle="modal" data-bs-target="#ModalEditRawMaterial"
-                               data-material-id="@rawMaterial.Id"
-                               data-material-Name="@rawMaterial.Name"
-                               data-material-unit="@rawMaterial.Unit">
+                            <a style="color:green;cursor:pointer" href="@Url.Action("EditRawMaterial", "RawMaterial", new { id = rawMaterial.Id })">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
@@ -67,11 +64,66 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', async function () {
+            const token = '@Model.token';
+
+
+            console.log("Token récupéré:", token)
+            if (!token) {
+                window.location.href = '/User/Login'; // Redirigez vers la page de connexion si le token n'existe pas
+             }
+            else {
+                try {
+                    const response = await fetch('/RawMaterial/RawMaterial', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}` // Ajouter le jeton ici
+                        },
+                    });
+
+                    if (response.ok) {
+                        console.log("token:", token);
+                        // Redirection ou autre logique à ajouter ici
+                    } else {
+                        window.location.href = '/User/Login';
+                        const errorMessage = await response.text();
+                        console.error('Erreur:', errorMessage); // Afficher l'erreur dans la console
+                        alert('Erreur lors de la récupération des données.'); // Afficher une alerte à l'utilisateur
+                    }
+                } catch (error) {
+                    console.error('Erreur lors de la requête:', error);
+                    alert('Une erreur est survenue lors de la requête.');
+                }
+            }
+             //else {
+            //     const response = await fetch('/RawMaterial/RawMaterial', {
+            //         method: 'GET',
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //             'Authorization': `Bearer ${token}` // Ajouter le jeton ici
+            //         },
+
+            //     });
+
+            //     // if (response.ok) {
+            //     //     // Rediriger ou afficher un message de succès
+            //     //     console.log("token:", token)
+            //     //     // window.location.href = '/Article/Article'; // Redirection après la création réussie
+            //     // } else {
+            //     //     window.location.href = '/User/Login';
+            //     //     const errorMessage = await response.text();
+            //     //     console.error('Erreur:', errorMessage); // Afficher l'erreur dans la console
+            //     //     alert('Erreur lors de du get.'); // Afficher une alerte à l'utilisateur
+            //     // }
+            // }
+
+
             var ModalDelete = document.getElementById('ModalDeleteRawMaterial')
             var ModalEditRawMaterial = document.getElementById('ModalEditRawMaterial')
             var confirmDeleteButton = document.getElementById('confirmDeleteButton');
             ModalDelete.addEventListener('show.bs.modal', function (event) {
+                console.log("rawmaterialId");
                 // Récupérez l'élément qui a déclenché l'événement
                 var button = event.relatedTarget;
                 // Récupérez l'ID de l'article depuis l'attribut data
@@ -87,70 +139,34 @@
                 var form = ModalDelete.querySelector('form');
                 var hiddenField = form.querySelector('input[name="rawmaterialId"]');
                 hiddenField.value = rawmaterialId;
+                
             });
 
-            ModalEditRawMaterial.addEventListener('show.bs.modal', function (event) {
-                // Récupérez l'élément qui a déclenché l'événement
-                var button = event.relatedTarget;
-                 // Récupérez l'ID de l'article depuis l'attribut data
-                var rawmaterialId = button.getAttribute('data-material-id');
-                // Récupérez le nom de l'article depuis l'attribut data
-                var rawmaterialName = button.getAttribute('data-material-Name');
-                var rawmaterialUnit = button.getAttribute('data-material-Unit');
-                // Modifiez le texte du modal pour inclure l'ID
-                var modalTitle = ModalDelete.querySelector('.modal-title');
+//           ModalEditRawMaterial.addEventListener('show.bs.modal', function (event) {
+//     var button = event.relatedTarget; // Élément qui a déclenché l'événement
+//     var rawmaterialId = button.getAttribute('data-material-id'); // Récupérer l'ID
+//     var rawmaterialName = button.getAttribute('data-material-Name'); // Récupérer le nom
+//     var rawmaterialUnit = button.getAttribute('data-material-Unit'); // Récupérer l'unité
 
-                modalTitle.textContent = '' + rawmaterialName ;
+//     var modalTitle = ModalEditRawMaterial.querySelector('.modal-title');
+//     modalTitle.textContent = 'Modifier : ' + rawmaterialName;
 
+//     var form = ModalEditRawMaterial.querySelector('form');
+//     form.querySelector('input[name="rawmaterialId"]').value = rawmaterialId; // Met à jour le champ caché avec l'ID
+//     form.querySelector('input[name="rawmaterialName"]').value = rawmaterialName; // Met à jour le champ de nom
+//     form.querySelector('input[name="rawmaterialUnit"]').value = rawmaterialUnit; // Met à jour le champ d'unité
+// });
 
-                // Mettre à jour le champ caché avec l'ID de l'article
-                var form = ModalEditRawMaterial.querySelector('form');
-                var hiddenField = form.querySelector('input[name="rawmaterialId"]');
-                hiddenField.value = rawmaterialId;
-               
-
-
-
-
-            });
         });
 
 
 
-            function updateTtc() {
-                // Récupérer le montant total des articles affiché dans la première colonne
-                const totalArticles = parseFloat(document.getElementById("totalArticles").innerText);
-
-                // Récupérer la valeur de l'input de TVA
-                const tva = parseFloat(document.getElementById("tvaInput").value) || 0; // Valeur par défaut à 0 si non valide
-
-                // Calculer le total TTC
-                const totalWithTva = (totalArticles * (1 + (tva / 100))).toFixed(2);
-
-                // Mettre à jour la troisième colonne
-                document.getElementById("totalWithTva").innerText = totalWithTva + ' DT';
-
-                updatepiece();
-            }
+           
 
 
 
 
-              function updatepiece() {
-                // Récupérer le montant total des articles affiché dans la première colonne
-            const totalWithTva = parseFloat(document.getElementById("totalWithTva").innerText);
-
-            const pieceInput = parseFloat(document.getElementById("pieceInput").value) || 0;
-
-                // Récupérer la valeur de l'input de TVA
-
-
-                // Calculer le total TTC
-            const pieceprix = (totalWithTva / pieceInput).toFixed(2);
-
-                // Mettre à jour la troisième colonne
-            document.getElementById("pieceprix").innerText = pieceprix + ' DT';
-            }
+         
 
     </script>
 
@@ -159,5 +175,5 @@
 
 <!-- Include the partial view for the modal -->
 @await Html.PartialAsync("DeleteRawMaterial")
-@await Html.PartialAsync("EditRawMaterial")
+
 </html>

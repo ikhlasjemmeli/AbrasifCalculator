@@ -1,4 +1,5 @@
 ﻿@model ComponentDto
+
 <head>
     <link rel="stylesheet" href="~/css/popup.css" />
     <!-- Assurez-vous que Bootstrap est également inclus -->
@@ -13,45 +14,41 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="login-content  mt-xxl-5">
+                <div class="login-content mt-xxl-5">
                     <form id="Editcomponent">
 
-                        <div class="input-div one  ">
+                        <div class="input-div one">
                             <div class="i">
                                 <i class="fas fa-user"></i>
                             </div>
                             <div class="div">
-                                <input type="text" placeholder="Nom du composant" name="ComponentName" class="input" name="ComponentName" readonly>
+                                <input type="text" placeholder="Nom du composant" name="ComponentName" class="input" readonly value="@Model.Name">
                             </div>
                         </div>
 
-
-                        <div class="input-div one  ">
+                        <div class="input-div one">
                             <div class="i">
                                 <i class="fas fa-user"></i>
                             </div>
                             <div class="div">
-                                <input type="number" placeholder="Quantité" class="input" name="Quantity" asp-for="Quantity">
+                                <input type="number" placeholder="Quantité" class="input" name="Quantity" id="Quantity" asp-for="Quantity">
                             </div>
                         </div>
 
-
-                        <div class="input-div one  ">
+                        <div class="input-div one">
                             <div class="i">
                                 <i class="fas fa-user"></i>
                             </div>
                             <div class="div">
-                                <input type="text" placeholder="Prix de l'unité" aria-label="Dollar amount (with dot and three decimal places)" name="Price" asp-for="Price" class="input" value="@Model.Price">
-                                <span class="" style="width:30px; right:0 ;bottom:10px; position:absolute">DT</span>
+                                <input type="text" placeholder="Prix de l'unité" aria-label="Dollar amount (with dot and three decimal places)" name="Price" id="Price" asp-for="Price" class="input" value="@Model.Price">
+                                <span style="width:30px; right:0 ;bottom:10px; position:absolute">DT</span>
                             </div>
                         </div>
 
-
-
-                        <input type="" name="Id" ,asp-for="Id" value="@Model.Id">
+                        <input type="hidden" name="Id" asp-for="Id" value="@Model.Id">
 
                         <div class="mt-4">
-                            <button type="submit" class="btn" style="align-items:end; width: 30%;height: 40px;border-radius: 25px;outline: none;border: none;background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);background-size: 200%;font-size: 1rem;color: #fff;">
+                            <button type="submit" class="btn" id="submitButton" style="align-items:end; width: 30%;height: 40px;border-radius: 25px;outline: none;border: none;background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);background-size: 200%;font-size: 1rem;color: #fff;" disabled>
                                 Modifier
                             </button>
                         </div>
@@ -63,15 +60,38 @@
 </div>
 
 <script type="text/javascript">
+    // Fonction de validation pour vérifier si tous les champs nécessaires sont remplis
+    function validateForm() {
+        const quantity = document.querySelector('input[name="Quantity"]').value;
+        const price = document.querySelector('input[name="Price"]').value;
+
+        // Vérifie si les champs "Quantité" et "Prix" sont remplis
+        if (quantity.trim() && price.trim()) {
+            document.getElementById('submitButton').disabled = false; // Active le bouton si les champs sont remplis
+        } else {
+            document.getElementById('submitButton').disabled = true; // Désactive le bouton si les champs sont vides
+        }
+    }
+
+    // Ajouter des écouteurs d'événements pour chaque champ afin de valider en temps réel
+    document.getElementById('Quantity').addEventListener('input', validateForm);
+    document.getElementById('Price').addEventListener('input', validateForm);
+
+    // Soumission du formulaire
     document.getElementById('Editcomponent').onsubmit = async function (e) {
         e.preventDefault(); // Empêche la soumission par défaut
+
         const token = '@Model.token';
-        const Quantity = document.querySelector('input[name="Quantity"]').value;
-        const Price = document.querySelector('input[name="Price"]').value; 
+        const quantity = document.querySelector('input[name="Quantity"]').value;
+        const priceInput = document.querySelector('input[name="Price"]');
+        const price = priceInput.value.replace(',', '.');
         const id = document.querySelector('input[name="Id"]').value;
         const articleid = '@Model.details.ArticleId';
+
+        console.log({ Id: id, Quantity: parseInt(quantity), Price: parseFloat(price) });
+
         if (!token) {
-            window.location.href = '/User/Login'; // Redirigez vers la page de connexion si le token n'existe pas
+            window.location.href = '/User/Login'; // Redirige vers la page de connexion si le token n'existe pas
         } else {
             const response = await fetch('/Article/EditComponent', {
                 method: 'POST',
@@ -79,20 +99,19 @@
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}` // Ajouter le jeton ici
                 },
-                body: JSON.stringify({ Id: id, Quantity: parseInt(Quantity), Price: parseFloat(Price) }) // Assurez-vous de la bonne conversion
+                body: JSON.stringify({ Id: id, Quantity: parseInt(quantity), Price: parseFloat(price) }) // Assurez-vous de la bonne conversion
             });
 
             if (response.ok) {
-                window.location.href =  `/Article/Details?id=${articleid}`;
-                // Redirigez ou effectuez d'autres actions
+                window.location.href = `/Article/Details?id=${articleid}`; // Redirige vers les détails de l'article
             } else {
                 const errorMessage = await response.text();
                 console.error('Erreur:', errorMessage);
                 console.error('Statut de la réponse:', response.status);
                 if (response.status === 401) {
-                    window.location.href = '/User/Login';
+                    window.location.href = '/User/Login'; // Redirige vers la page de connexion si le token est invalide
                 } else {
-                    alert('Erreur lors de la création de l\'article. Statut : ' + response.status);
+                    alert('Erreur lors de la modification du composant. Statut : ' + response.status);
                 }
             }
         }

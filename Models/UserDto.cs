@@ -10,5 +10,7 @@
         public string confPassword { get; set; }
         public int TotalArticles { get; set; }
         public int TotalComponents { get; set; }
+        public string token { get; set; }
+        public bool existaccount { get; set; }
     }
 }

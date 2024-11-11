@@ -1,4 +1,4 @@
-﻿
+﻿@model Calculator.Models.ListComponentDto
 <head>
     <link rel="stylesheet" href="~/css/popup.css" />
     <!-- Assurez-vous que Bootstrap est également inclus -->
@@ -23,8 +23,8 @@
             </div>
             <div class="modal-footer">
 
-                <form id="deleteArticleForm" method="post" action="/RawMaterial/DeleteRawMaterial">
-                    <input type="hidden" name="rawmaterialId" id="rawmaterialId" value="" />
+                <form id="deleteRawMaterialForm">
+                    <input type="hidden" name="rawmaterialId" id="rawmaterialId" value="@Model.Id" />
                     
                     <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
                 </form>
@@ -32,3 +32,44 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+
+    document.getElementById('deleteRawMaterialForm').onsubmit = async function (e) {
+        e.preventDefault(); // Empêche la soumission par défaut
+        const token = '@Model.token';
+        console.log("tokenrawmaterial", token);
+        const id = document.querySelector('input[name="rawmaterialId"]').value;
+        console.log(JSON.stringify({ Id: parseInt(id) }))
+
+        if (!token) {
+            window.location.href = '/User/Login'; // Redirigez vers la page de connexion si le token n'existe pas
+        } else {
+            const response = await fetch(`/RawMaterial/DeleteRawMaterial?id=${id}`, { // Corrigé ici
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Ajouter le jeton ici
+                },
+                //body: JSON.stringify({ Id: parseInt(id) }) // Convertir les données en JSON
+            });
+
+            if (response.ok) {
+
+                window.location.href = '/RawMaterial/RawMaterial'; // Redirection après la création réussie
+            } else {
+                const errorMessage = await response.text();
+                console.error('Erreur:', errorMessage); // Afficher l'erreur dans la console
+                console.error('Statut de la réponse:', response.status); // Afficher le statut de la réponse
+                if (response.status === 401) {
+                    // Rediriger vers la page de connexion
+                    window.location.href = '/User/Login';
+                } else {
+                    // Alerte à l'utilisateur pour d'autres erreurs
+                    alert('Erreur lors de la suppression de matiere premiere. Statut : ' + response.status);
+                }
+            }
+
+        }
+    };
+</script>

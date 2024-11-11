@@ -10,6 +10,7 @@ namespace Calculator.Models
         public string Name { get; set; } = "";
 
         public string Unit { get; set; }
+        public int UserId { get; set; }
         public ICollection<ArticleComponent> ArticleComponents { get; set; } = new List<ArticleComponent>();
 
 

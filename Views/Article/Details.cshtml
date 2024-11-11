@@ -1,4 +1,4 @@
-﻿@model ComponentDto //ArticleDetailsViewModel
+﻿ @model ComponentDto //ArticleDetailsViewModel
 @{
     // Calculate totals
     decimal totalHT =  Model.details.Components.Sum(comp => comp.Price * comp.Quantity);
@@ -45,10 +45,19 @@
                         <th style="text-align: center;vertical-align: middle;">@comp.Quantity</th>
                         <th style="text-align: center;vertical-align: middle;">@comp.Price  DT</th>
                         <th style="text-align: center;vertical-align: middle;" class="totalComponents">@((comp.Price * comp.Quantity).ToString("F3"))  DT</th>
-                        <th style="text-align: center;vertical-align: middle; "><input style="width:50px" type="number"  class="tvaInput" placeholder="TVA" onchange="updateTtc(this, @comp.Id)" value="@comp.Tva" /> %</th>
+                        <th style="text-align: center;vertical-align: middle; "><input style="width:50px" type="number" class="tvaInput" placeholder="TVA" onchange="updateTtc(this, @comp.Id);" value="@comp.Tva" /> %</th>
                        <th style="text-align: center;vertical-align: middle;" class="totalWithTva">
-                            @comp.totalpriceTTC DT
+                             
+                            @if (comp.totalpriceTTC == 0)
+                            {
+                                @((comp.Price * comp.Quantity).ToString("F3"))
+                                
+                                    }
+                            else
+                            {
+                                @comp.totalpriceTTC.ToString("F3")
 
+                            } DT
                         </th>
                         <th>
                             <a style="color:green;cursor:pointer" data-bs-toggle="modal" data-bs-target="#exampleModal8"
@@ -96,7 +105,7 @@
             <tfoot>
                 <tr>
                     <th colspan="2" style="text-align: right;">Total TTC:</th>
-                    <th style="text-align: center; margin-left:300px;">@totalTTC.ToString("F3") DT</th>
+                    <th style="text-align: center; margin-left:300px;" class="totalTtcGlobal">@Model.details.Components.Sum(comp => comp.totalpriceTTC) DT</th>
 
 
                 </tr>
@@ -193,6 +202,19 @@
                 inputPrice.value = componentPrice; // Mettre à jour le prix
             });
         });
+        // Fonction pour recalculer et mettre à jour le total TTC global
+        function updateGlobalTtc() {
+            let totalTtc = 0;
+
+            // Parcourir chaque ligne du tableau pour calculer le total TTC global
+            document.querySelectorAll('.totalWithTva').forEach(function (element) {
+                const value = parseFloat(element.innerText.replace(' DT', '').replace(',', '.').trim()) || 0;
+                totalTtc += value;
+            });
+
+            // Mettre à jour l'affichage du total TTC global
+            document.querySelector('.totalTtcGlobal').innerText = totalTtc.toFixed(3).replace('.', ',') + ' DT';
+        }
 
         function updateTtc(tvaInput, id) {
             // Récupérer la ligne parente du champ de TVA
@@ -210,15 +232,45 @@
             // const totalWithTva = totalArticles + (totalArticles * (tva / 100));
             const totalWithTva = (totalComponents * (1 + (tva / 100))).toFixed(3);
 
-            // Mettre à jour la colonne TTC
-            row.querySelector('.totalWithTva').innerText = totalWithTva.replace('.', ',') + ' DT';
+
+
+
+
+            row.querySelector('.totalWithTva').innerText = totalWithTva.replace('.', ',') + ' DT'; 
+
+
+            // // **Mise à jour du total TTC global** :
+            // // Initialiser le total TTC global à 0
+            // let totalTtcGlobal = 0;
+
+            // // Parcourir toutes les lignes pour recalculer le total TTC global
+            // // document.querySelectorAll('.totalWithTva').forEach(function (element) {
+            // //     const value = parseFloat(element.innerText.replace(' DT', '').replace(',', '.').trim()) || 0;
+            // //     totalTtcGlobal += value;
+            // // });
+
+            // // Mettre à jour l'affichage du total TTC global
+            // document.querySelector('.totalTtcGlobal').innerText = totalTtcGlobal.replace('.', ',') + ' DT';
+
+
+
+
+
+
             const payload = { articleId: @Model.details.ArticleId, componentId: id, Tva: tva, totalpriceTTC: totalWithTva };
             console.log('Données envoyées:', JSON.stringify(payload));
+            const token = '@Model.token';
+            console.log("tokenupdatetva", token);
+            if (!token) {
+                window.location.href = '/User/Login';
+
+            }
             // Effectuer une requête AJAX pour mettre à jour la TVA dans la base de données
             fetch(`/Article/UpdateTva`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(payload)
             })
@@ -226,12 +278,29 @@
                     if (!response.ok) {
                         throw new Error('Erreur lors de la mise à jour de la TVA');
                     }
+                    if (response.status === 401) {
+                        // Rediriger vers la page de connexion
+                        window.location.href = '/User/Login';
+                    }
                     return response.json();
                 })
+                
                 .then(data => {
-                    console.log('Mise à jour réussie', data);
-                   // updateTtc(tvaInput);
+                    
+                    // Si la mise à jour réussie, mettre à jour le total TTC global
+                    if (data.success) {
+                        // Assurez-vous que l'élément contenant le total TTC global existe et qu'il est bien mis à jour
+                        const totalTtcGlobalElement = document.querySelector('.totalTtcGlobal');
+                        if (totalTtcGlobalElement) {
+                            // Convertir le total TTC en chaîne de caractères, remplacer le point par une virgule et ajouter l'unité
+                            const formattedTotalTtc = data.totalTtc.toFixed(3).replace('.', ',');
+                            totalTtcGlobalElement.innerText = formattedTotalTtc + ' DT';
+                        }
+                    } else {
+                        console.error('Erreur de mise à jour:', data.message);
+                    }
                 })
+
                 .catch(error => {
                     console.error('Erreur:', error);
                 });

@@ -146,17 +146,20 @@ public class ArticleController : Controller
     public IActionResult Create()
     {
         var token = HttpContext.Request.Cookies["token"];
-        var Article = new ArticleDto
-        {
-            
-        };
+       
         if (IsTokenValid(token))
         {
-
-            Article.token = token;
-           // Cette vue ne nécessite pas de modèle ou utilise ArticleDto pour l'affichage
+            var Article = new ArticleDto
+            {
+                token = token
+            };
+            return View(Article);
+            // Cette vue ne nécessite pas de modèle ou utilise ArticleDto pour l'affichage
         }
-        return View(Article);
+       else
+        {
+            return RedirectToAction("Login", "User");
+        }
 
     }
     public IActionResult EditArticle(int id)
@@ -200,19 +203,22 @@ public class ArticleController : Controller
     }
     [Authorize]
     [HttpPost]
-    public IActionResult Create([FromBody] ArticleDto articleDto)
+    public IActionResult Create( string Name)
     {
+        if (Name == null)
+        {
+            throw new Exception("null");
+        }
         if (!ModelState.IsValid)
         {
             return View(); // Passez l'articleDto à la vue Create
         }
         try
-        { 
+        {
+           
     
         var token = HttpContext.Request.Cookies["token"];
-        HttpClient client = new HttpClient();
-        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-        var Id = GetNameFromToken(token);
+       var Id = GetNameFromToken(token);
 
         // Récupérer l'ID de l'utilisateur à partir des claims
         // var userEmail = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -222,19 +228,21 @@ public class ArticleController : Controller
         {
             var article = new Article
             {
-                Name = articleDto.Nameart,
+                Name = Name,
                 UserId = userId,
                 CreationDate = DateTime.Now,
-            
+                
+
             };
             context.Articles.Add(article);
             context.SaveChanges();
-           // return RedirectToAction("Article", "Article");
+                return Ok(new { message = "Article créé avec succès." });
+                // return RedirectToAction("Article", "Article");
+            }
+
+            return Unauthorized("Token invalide.");
+            // return RedirectToAction("Article", "Article"); // Retourne OK si tout se passe bien
         }
-
-
-        return RedirectToAction("Article", "Article"); // Retourne OK si tout se passe bien
-    }
     catch (Exception ex)
     {
         // Log l'erreur pour le débogage
@@ -246,31 +254,34 @@ public class ArticleController : Controller
     }
     [Authorize]
     [HttpPost]
-    public IActionResult EditComponent([FromBody] ComponentDto comp)
+    public IActionResult EditComponent([FromBody] ComponentToAddDto comp)
     {
         if (comp == null)
         {
             Console.WriteLine("Le modèle est null");
             return BadRequest("Le modèle est null");
-           // throw new Exception($"{comp.Id}");
+            throw new Exception($"{comp.Id}");
         }
         var token = HttpContext.Request.Cookies["token"];
         if (IsTokenValid(token)) { 
             var component = context.ArticleComponents.Include(c=>c.Component).ToList().FirstOrDefault(artcomp => artcomp.ComponentId == comp.Id);
-
-        component.Quantity = comp.Quantity;
-        component.Price = comp.Price;
+            //throw new Exception($"{comp.Price}");
+            component.Quantity = comp.Quantity ;
+            component.Price = comp.Price ;
+           // throw new Exception($"{comp.Price}");
         context.ArticleComponents.Update(component);
-        context.SaveChanges();
-        //var componentDto = new ArticleDetailsViewModel
-        //{
-        //    Id = id,
-        // ComponentName = component.Component.Name,
-        // Price = component.Price,
-        // Quantity = component.Quantity,
+            
+            context.SaveChanges();
+            //throw new Exception($"{component.Quantity}, {component.Price}");
+            //var componentDto = new ArticleDetailsViewModel
+            //{
+            //    Id = id,
+            // ComponentName = component.Component.Name,
+            // Price = component.Price,
+            // Quantity = component.Quantity,
 
-        //};
-        return RedirectToAction("Details", "Article", new { id = component.ArticleId }); // Cette vue ne nécessite pas de modèle ou utilise ArticleDto pour l'affichage
+            //};
+            return RedirectToAction("Details", "Article", new { id = component.ArticleId }); // Cette vue ne nécessite pas de modèle ou utilise ArticleDto pour l'affichage
         }
         else
         {
@@ -284,11 +295,8 @@ public class ArticleController : Controller
     public IActionResult Addcomponent([FromBody] ComponentToAddDto componentDto)
     {
         //var compoentId = 0;
-        var existingComponent = context.Components.FirstOrDefault(comp => comp.Name == "matiere 1");
-       if (componentDto == null)
-        {
-            throw new Exception("yes");
-        }
+        var existingComponent = context.Components.FirstOrDefault(comp => comp.Name == componentDto.Name);
+       
 
         // Récupérer l'article de la base de données
         var article = context.Articles
@@ -308,7 +316,27 @@ public class ArticleController : Controller
     }
     public IActionResult AddComponent()
     {
-        return View(); // Cette vue ne nécessite pas de modèle ou utilise ComponentDto pour l'affichage
+        var token = HttpContext.Request.Cookies["token"];
+        var Id = GetNameFromToken(token);
+        if (IsTokenValid(token) && int.TryParse(Id, out int userId)!=null)
+        {
+            throw new Exception($"{userId}");
+            var rawMaterials = context.Components
+                     // .Include(a => a.ArticleComponents)
+                     .Where(a => a.UserId == userId) // Filtrer par UserId
+                    .ToList();
+            var componentDto = new ComponentDto
+            {
+                components = rawMaterials,
+                token = token
+            };
+            return View(componentDto);
+        }
+        else
+        {
+            return RedirectToAction("Login", "User");
+        }
+           // Cette vue ne nécessite pas de modèle ou utilise ComponentDto pour l'affichage
     }
 
   
@@ -363,12 +391,21 @@ public class ArticleController : Controller
     public IActionResult DeleteArticle()
     {
         var token = HttpContext.Request.Cookies["token"];
-        var articleToDelete = new ComponentDto
-        {
-            token = token
-        };
+       
         
-        return View(articleToDelete); // Cette vue ne nécessite pas de modèle ou utilise ComponentDto pour l'affichage
+        
+        if (IsTokenValid(token))
+        {
+            var articleToDelete = new ComponentDto
+            {
+                token = token
+            };
+            return View(articleToDelete);
+        }
+        else
+        {
+            return RedirectToAction("Login", "User");
+        }// Cette vue ne nécessite pas de modèle ou utilise ComponentDto pour l'affichage
     }
     
     [Authorize]
@@ -405,8 +442,12 @@ public class ArticleController : Controller
     [HttpPost]
     public IActionResult UpdatePieces([FromBody] PiecesUpdateModelDto model)
     {
+        var token = HttpContext.Request.Cookies["token"];
+
+
+
         
-        if (ModelState.IsValid)
+            if (ModelState.IsValid && IsTokenValid(token))
         {
             var article = context.Articles
                 .FirstOrDefault(c => c.Id == model.Id );
@@ -434,14 +475,18 @@ public class ArticleController : Controller
     }
 
 
-    /*
+
+    [Authorize]
     [HttpPost]
     public IActionResult UpdateTva([FromBody] TvaUpdateModelDto model)
     {
-        Console.WriteLine("Méthode UpdateTva appelée");
-        Console.WriteLine("Données reçues : " + JsonSerializer.Serialize(model)); // Nécessite using System.Text.Json;
+        var token = HttpContext.Request.Cookies["token"];
 
-        if (ModelState.IsValid)
+
+
+
+        if (ModelState.IsValid && IsTokenValid(token))
+          
         {
             var component = context.ArticleComponents
                 .FirstOrDefault(c => c.ArticleId == model.articleId && c.ComponentId == model.componentId);
@@ -458,7 +503,12 @@ public class ArticleController : Controller
                 component.totalpriceTTC = model.totalpriceTTC;
                 context.Update(component);
                 context.SaveChanges();
-                return Ok(new { success = true });
+
+                decimal totalTTC = context.ArticleComponents
+              .Where(c => c.ArticleId == model.articleId)
+              .Sum(c => c.totalpriceTTC);
+               
+                return Ok(new { success = true , totalTtc = totalTTC });
             }
             catch (Exception ex)
             {
@@ -472,7 +522,7 @@ public class ArticleController : Controller
     }
 
 
-
+/*
     public IActionResult Statistic() 
     { 
         return View(); 
