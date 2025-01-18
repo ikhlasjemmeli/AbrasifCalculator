@@ -33,52 +33,7 @@ builder.Services.AddAuthentication(x =>
         ClockSkew = TimeSpan.Zero
     };
 });
-builder.Services.AddControllers(); /*
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my_1_top_2_secret_3_key_4_1234567890")),
-            ValidateIssuer = false,
-            ValidateAudience = false,
-        };
-    });*/
-
-// Add authentication services
-//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-//    .AddCookie(options =>
-//    {
-//        options.LoginPath = "/User/Login"; // Page de connexion
-//        options.AccessDeniedPath = "/User/AccessDenied"; // Optionnel
-//        options.ExpireTimeSpan = TimeSpan.FromDays(1);
-//    });
-//.AddGoogle(options =>
-// {
-//     options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-//     options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-// });
-
-// Add authentication services for JWT
-//builder.Services.AddAuthentication(options =>
-//{
-//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//})
-//.AddJwtBearer(options =>
-//{
-//    options.TokenValidationParameters = new TokenValidationParameters
-//    {
-//        ValidateIssuer = true,
-//        ValidateAudience = true,
-//        ValidateLifetime = true,
-//        ValidateIssuerSigningKey = true,
-//        ValidIssuer = builder.Configuration["Authentication:Jwt:Issuer"],
-//        ValidAudience = builder.Configuration["Authentication:Jwt:Audience"],
-//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Authentication:Jwt:SecretKey"]))
-//    };
-//});
+builder.Services.AddControllers(); 
 
 builder.Services.AddCors(options =>
 {
@@ -110,8 +65,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllers(); // Si vous utilisez des API
-                                // Ou utilisez MapDefaultControllerRoute pour des contrôleurs MVC
+    endpoints.MapControllers(); 
+                               
     endpoints.MapDefaultControllerRoute();
 });
 app.UseCors("CorsPolicy");
